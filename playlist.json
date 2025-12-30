@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "mise_a_jour": "YYYY-MM-DD",
+  "playlists": [
+    {
+      "nom": "Mes Créations Récentes",
+      "pistes": [
+        {
+          "titre": "Awaken Me",
+          "url": "https://kdrive.infomaniak.com/app/share/440544/fa0af7bf-88a7-4850-9b68-01a654d13220"
+        },      
+         
+              ]
+    }
+  ]
+}
