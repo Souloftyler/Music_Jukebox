@@ -18,13 +18,13 @@
             flex-direction: column; /* Ajouté pour centrer le contenu et l'audio-status */
             justify-content: flex-start;
             align-items: center;
-            padding: 20px 0;
+            padding: 10px 0; /* Padding réduit pour le mobile */
         }
 
         .audio-controls {
             max-width: 800px;
             width: 95%;
-            margin-bottom: 20px;
+            margin-bottom: 15px; /* Marge réduite pour le mobile */
             padding: 10px;
             background-color: #4a4a4a;
             border: 1px solid #e0b04c;
@@ -34,7 +34,7 @@
 
         .container {
             max-width: 800px;
-            width: 95%;
+            width: 98%; /* 98% pour plus de fluidité mobile */
             background-color: #2c2c2c;
             border: 4px solid #5a4b30; /* Cadre sombre et or */
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
@@ -53,8 +53,11 @@
         
         .illustration img {
             width: 100%;
-            height: auto;
+            /* Hauteur auto pour le responsive */
+            height: auto; 
             object-fit: cover;
+            /* Assurer que l'image ne dépasse pas la largeur du conteneur sur mobile */
+            max-width: 100%; 
         }
         
         p {
@@ -68,6 +71,9 @@
             background-color: #4a4a4a;
             border: 1px solid #e0b04c;
             color: #d1d5db;
+            /* Assurer que les boutons sont bien visibles et cliquables sur mobile */
+            min-height: 48px; 
+            text-align: left;
         }
 
         .choice-button:hover {
@@ -96,15 +102,15 @@
     <div class="container rounded-lg">
         
         <!-- Contenu principal avec padding -->
-        <div class="p-6 md:p-8">
+        <div class="p-4 md:p-8"> <!-- Padding ajusté pour le mobile -->
             
             <!-- CHAPITRE 1 : DÉBUT DE L'AVENTURE -->
             <div id="chapter1" class="chapter active">
                 <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 1 : Le Marché des Murmures Oubliés</h1>
                 
-                <!-- Illustration spécifique au Chapitre 1 (Placeholder thématique) -->
+                <!-- Illustration spécifique au Chapitre 1 -->
                 <div class="illustration">
-                    <img src="https://placehold.co/800x450/42231A/E0B04C?text=MARCHÉ+DE+PORT-ÉCLAT%0A(Foule+et+Armure)" 
+                    <img src="http://googleusercontent.com/image_generation_content/1" 
                          alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
                 </div>
                 
@@ -134,9 +140,9 @@
             <div id="chapter2" class="chapter">
                 <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 2 : L'Interrogatoire Subtil</h1>
                 
-                <!-- Illustration spécifique au Chapitre 2 (Placeholder thématique) -->
+                <!-- Illustration spécifique au Chapitre 2 -->
                 <div class="illustration">
-                    <img src="https://placehold.co/800x450/2C2C2C/E0B04C?text=RÉVÉLATIONS+SOMBRÉES%0A(Feu+Sacré+et+Prophétie)" 
+                    <img src="http://googleusercontent.com/image_generation_content/2" 
                          alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
                 </div>
                 
@@ -164,9 +170,9 @@
             <div id="chapter3" class="chapter">
                 <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 3 : L'Or du Silence</h1>
                 
-                <!-- Illustration spécifique au Chapitre 3 (Placeholder thématique) -->
+                <!-- Illustration spécifique au Chapitre 3 -->
                 <div class="illustration">
-                    <img src="https://placehold.co/800x450/3A322A/E0B04C?text=LE+POIDS+DE+L'OR%0A(Main+et+Bourse)" 
+                    <img src="http://googleusercontent.com/image_generation_content/3" 
                          alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
                 </div>
                 
@@ -194,9 +200,9 @@
             <div id="chapter4_ruines" class="chapter">
                 <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 4 : Le Rendez-vous dans les Ombres</h1>
 
-                <!-- Illustration spécifique au Chapitre 4 (Placeholder thématique) -->
+                <!-- Illustration spécifique au Chapitre 4 -->
                 <div class="illustration">
-                    <img src="https://placehold.co/800x450/1C1C1C/E0B04C?text=RUINES+NOCTURNES%0A(Feu+de+Camp+et+Rôdeur)" 
+                    <img src="http://googleusercontent.com/image_generation_content/4" 
                          alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
                 </div>
                 
@@ -221,9 +227,9 @@
             <!-- CHAPITRE FICTIFS POUR LA DÉMO -->
             <div id="chapter4_hypotheque" class="chapter">
                 <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 4 (Hypothèse) : La Magie du Contrat</h1>
-                <!-- Illustration Placeholder thématique -->
+                <!-- Illustration spécifique (Serment Arcanique) -->
                 <div class="illustration">
-                    <img src="https://placehold.co/800x200/5A4B30/E0B04C?text=SERMENT+ARCANiQUE+(Lien+Magique)" 
+                    <img src="http://googleusercontent.com/image_generation_content/5" 
                          alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
                 </div>
                 <p>... Ceci est la suite de l'aventure après le choix 3. Vous recevez un acompte important, mais la magie vous lie au succès de la mission. <a href="#" onclick="goToChapter('chapter1')" class="text-blue-400 underline">Retour au début</a></p>
@@ -231,9 +237,9 @@
             
             <div id="chapter4_depart" class="chapter">
                 <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 4 (Départ) : Course contre la Montre</h1>
-                <!-- Illustration Placeholder thématique -->
+                <!-- Illustration spécifique (Course vers Silvanus) -->
                 <div class="illustration">
-                    <img src="https://placehold.co/800x200/42231A/E0B04C?text=COURSE+VERS+SILVANUS" 
+                    <img src="http://googleusercontent.com/image_generation_content/6" 
                          alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
                 </div>
                 <p>... Ceci est la suite de l'aventure après le choix 4. Vous partez immédiatement, évitant la foule. <a href="#" onclick="goToChapter('chapter1')" class="text-blue-400 underline">Retour au début</a></p>
@@ -241,9 +247,9 @@
             
             <div id="chapter4_seul" class="chapter">
                 <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 4 (Seul) : La Chasse Impatiente</h1>
-                <!-- Illustration Placeholder thématique -->
+                <!-- Illustration spécifique (Chasse Solitaire) -->
                 <div class="illustration">
-                    <img src="https://placehold.co/800x200/3A322A/E0B04C?text=LA+CHASSE+SOLITAIRE+(Erreur)" 
+                    <img src="http://googleusercontent.com/image_generation_content/7" 
                          alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
                 </div>
                 <p>... Ceci est la suite de l'aventure après le choix 6. Vous vous retrouvez face à la première Dark Soul sans préparation. <a href="#" onclick="goToChapter('chapter1')" class="text-blue-400 underline">Retour au début</a></p>
@@ -251,9 +257,9 @@
 
             <div id="chapter5_magie" class="chapter">
                 <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 5 (Magie) : L'embuscade Arcanique</h1>
-                <!-- Illustration Placeholder thématique -->
+                <!-- Illustration spécifique (Embuscade Arcanique) -->
                 <div class="illustration">
-                    <img src="https://placehold.co/800x200/1C1C1C/E0B04C?text=L'EMBUSCADE+ARCANiQUE" 
+                    <img src="http://googleusercontent.com/image_generation_content/8" 
                          alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
                 </div>
                 <p>... Ceci est la suite de l'aventure après le choix 7. <a href="#" onclick="goToChapter('chapter1')" class="text-blue-400 underline">Retour au début</a></p>
@@ -261,9 +267,9 @@
             
             <div id="chapter5_frappe" class="chapter">
                 <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 5 (Frappe) : Le Duel Impétueux</h1>
-                <!-- Illustration Placeholder thématique -->
+                <!-- Illustration spécifique (Duel Impétueux) -->
                 <div class="illustration">
-                    <img src="https://placehold.co/800x200/2C2C2C/E0B04C?text=DUEL+IMPETUEUX+(Épée)" 
+                    <img src="http://googleusercontent.com/image_generation_content/9" 
                          alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
                 </div>
                 <p>... Ceci est la suite de l'aventure après le choix 8. <a href="#" onclick="goToChapter('chapter1')" class="text-blue-400 underline">Retour au début</a></p>
