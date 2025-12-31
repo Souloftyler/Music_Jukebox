@@ -110,7 +110,7 @@
                 
                 <!-- Illustration spécifique au Chapitre 1 -->
                 <div class="illustration">
-                    <img src="http://googleusercontent.com/image_generation_content/1" 
+                    <img src="http://googleusercontent.com/image_generation_content/20" 
                          alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
                 </div>
                 
@@ -142,7 +142,7 @@
                 
                 <!-- Illustration spécifique au Chapitre 2 -->
                 <div class="illustration">
-                    <img src="http://googleusercontent.com/image_generation_content/2" 
+                    <img src="http://googleusercontent.com/image_generation_content/21" 
                          alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
                 </div>
                 
@@ -172,7 +172,7 @@
                 
                 <!-- Illustration spécifique au Chapitre 3 -->
                 <div class="illustration">
-                    <img src="http://googleusercontent.com/image_generation_content/3" 
+                    <img src="http://googleusercontent.com/image_generation_content/22" 
                          alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
                 </div>
                 
@@ -202,7 +202,7 @@
 
                 <!-- Illustration spécifique au Chapitre 4 -->
                 <div class="illustration">
-                    <img src="http://googleusercontent.com/image_generation_content/4" 
+                    <img src="http://googleusercontent.com/image_generation_content/23" 
                          alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
                 </div>
                 
@@ -229,7 +229,7 @@
                 <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 4 (Hypothèse) : La Magie du Contrat</h1>
                 <!-- Illustration spécifique (Serment Arcanique) -->
                 <div class="illustration">
-                    <img src="http://googleusercontent.com/image_generation_content/5" 
+                    <img src="http://googleusercontent.com/image_generation_content/24" 
                          alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
                 </div>
                 <p>... Ceci est la suite de l'aventure après le choix 3. Vous recevez un acompte important, mais la magie vous lie au succès de la mission. <a href="#" onclick="goToChapter('chapter1')" class="text-blue-400 underline">Retour au début</a></p>
@@ -239,7 +239,7 @@
                 <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 4 (Départ) : Course contre la Montre</h1>
                 <!-- Illustration spécifique (Course vers Silvanus) -->
                 <div class="illustration">
-                    <img src="http://googleusercontent.com/image_generation_content/6" 
+                    <img src="http://googleusercontent.com/image_generation_content/25" 
                          alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
                 </div>
                 <p>... Ceci est la suite de l'aventure après le choix 4. Vous partez immédiatement, évitant la foule. <a href="#" onclick="goToChapter('chapter1')" class="text-blue-400 underline">Retour au début</a></p>
@@ -249,7 +249,7 @@
                 <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 4 (Seul) : La Chasse Impatiente</h1>
                 <!-- Illustration spécifique (Chasse Solitaire) -->
                 <div class="illustration">
-                    <img src="http://googleusercontent.com/image_generation_content/7" 
+                    <img src="http://googleusercontent.com/image_generation_content/26" 
                          alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
                 </div>
                 <p>... Ceci est la suite de l'aventure après le choix 6. Vous vous retrouvez face à la première Dark Soul sans préparation. <a href="#" onclick="goToChapter('chapter1')" class="text-blue-400 underline">Retour au début</a></p>
@@ -259,7 +259,7 @@
                 <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 5 (Magie) : L'embuscade Arcanique</h1>
                 <!-- Illustration spécifique (Embuscade Arcanique) -->
                 <div class="illustration">
-                    <img src="http://googleusercontent.com/image_generation_content/8" 
+                    <img src="http://googleusercontent.com/image_generation_content/27" 
                          alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
                 </div>
                 <p>... Ceci est la suite de l'aventure après le choix 7. <a href="#" onclick="goToChapter('chapter1')" class="text-blue-400 underline">Retour au début</a></p>
@@ -269,7 +269,7 @@
                 <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 5 (Frappe) : Le Duel Impétueux</h1>
                 <!-- Illustration spécifique (Duel Impétueux) -->
                 <div class="illustration">
-                    <img src="http://googleusercontent.com/image_generation_content/9" 
+                    <img src="http://googleusercontent.com/image_generation_content/28" 
                          alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
                 </div>
                 <p>... Ceci est la suite de l'aventure après le choix 8. <a href="#" onclick="goToChapter('chapter1')" class="text-blue-400 underline">Retour au début</a></p>
@@ -337,6 +337,7 @@
             const binaryString = atob(base64);
             const len = binaryString.length;
             const bytes = new Uint8Array(len);
+            // Correction de la boucle for
             for (let i = 0; i < len; i++) {
                 bytes[i] = binaryString.charCodeAt(i);
             }
