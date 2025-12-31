@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaelen : Le Mercenaire et les Dark Souls</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Merriweather:wght@300;400&display=swap');
+        
+        /* Styles personnalisés pour l'immersion Dark Fantasy */
+        body {
+            font-family: 'Merriweather', serif;
+            background-color: #1a1a1a; 
+            color: #d1d5db; /* Texte gris clair */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column; /* Ajouté pour centrer le contenu et l'audio-status */
+            justify-content: flex-start;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .audio-controls {
+            max-width: 800px;
+            width: 95%;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #4a4a4a;
+            border: 1px solid #e0b04c;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 95%;
+            background-color: #2c2c2c;
+            border: 4px solid #5a4b30; /* Cadre sombre et or */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+        }
+        
+        h1, h2 {
+            font-family: 'Cinzel', serif;
+            color: #e0b04c; /* Or antique */
+        }
+        
+        .chapter-title {
+            border-bottom: 2px solid #5a4b30;
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .illustration img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+        
+        p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        .choice-button {
+            transition: all 0.2s;
+            background-color: #4a4a4a;
+            border: 1px solid #e0b04c;
+            color: #d1d5db;
+        }
+
+        .choice-button:hover {
+            background-color: #6a6a6a;
+            color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+            transform: translateY(-1px);
+        }
+        
+        /* Cacher les chapitres non actifs */
+        .chapter:not(.active) {
+            display: none;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+
+    <!-- Contrôles et statut de l'audio -->
+    <div class="audio-controls">
+        <button id="audio-init-button" class="choice-button px-4 py-2 text-sm" onclick="initAudioContext()">
+            Activer l'Audio (Requis)
+        </button>
+        <div id="audio-status" class="mt-2 text-yellow-400 text-sm">Système audio inactif.</div>
+    </div>
+    
+    <div class="container rounded-lg">
+        
+        <!-- Contenu principal avec padding -->
+        <div class="p-6 md:p-8">
+            
+            <!-- CHAPITRE 1 : DÉBUT DE L'AVENTURE -->
+            <div id="chapter1" class="chapter active">
+                <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 1 : Le Marché des Murmures Oubliés</h1>
+                
+                <!-- Illustration spécifique au Chapitre 1 (Placeholder thématique) -->
+                <div class="illustration">
+                    <img src="https://placehold.co/800x450/42231A/E0B04C?text=MARCHÉ+DE+PORT-ÉCLAT%0A(Foule+et+Armure)" 
+                         alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
+                </div>
+                
+                <p>Le soleil de midi dardait ses rayons impitoyables sur les étals colorés du marché de Port-Éclat, inondant l'air d'un mélange entêtant d'épices exotiques, de poisson frais et de sueur humaine. Vous, Sir Kaelen, ou plutôt, Kaelen le mercenaire comme on vous nommait désormais, fauchiez le tumulte de la foule avec l'aisance d'un homme qui avait vu bien des chaos. Votre lourd manteau de voyage dissimulait en partie l'armure abîmée que vous portiez encore sous vos vêtements civils.</p>
+                
+                <p>Une voix rauque vous interpella depuis l'ombre d'un auvent. "Psst ! Le grand costaud ! Un travail pour vos talents, peut-être ?"</p>
+                
+                <p>Un homme petit et voûté vous fixa avec des yeux vifs. "Des histoires de... *revenants*. Pas les simples morts-vivants. Non, ceux-ci sont différents. Plus sombres. Plus *anciens*. Les *Dark Souls*."</p>
+                
+                <p>Il sortit une petite bourse. "Je vous paierai grassement pour chaque âme renvoyée. Leur seule faiblesse : leurs cendres doivent être rapportées au Feu Sacré du Sanctuaire d'Ashwood."</p>
+
+                <h2 class="text-2xl mt-8 mb-4 text-center">Vos Choix</h2>
+                <div class="flex flex-col gap-4">
+                    <!-- Bouton 1 -->
+                    <button onclick="goToChapter('chapter2')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                        1. Utiliser votre éloquence (Art Arcanique) pour **demander plus de détails** sur ces "Dark Souls" et le Feu Sacré.
+                    </button>
+                    
+                    <!-- Bouton 2 -->
+                    <button onclick="goToChapter('chapter3')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                        2. **Accepter la mission** sans plus de questions, pressé par l'argent et l'urgence.
+                    </button>
+                </div>
+            </div>
+            
+            <!-- CHAPITRE 2 : L'ÉLOQUENCE ET LE SAVOIR (Détails) -->
+            <div id="chapter2" class="chapter">
+                <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 2 : L'Interrogatoire Subtil</h1>
+                
+                <!-- Illustration spécifique au Chapitre 2 (Placeholder thématique) -->
+                <div class="illustration">
+                    <img src="https://placehold.co/800x450/2C2C2C/E0B04C?text=RÉVÉLATIONS+SOMBRÉES%0A(Feu+Sacré+et+Prophétie)" 
+                         alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
+                </div>
+                
+                <p><span class="text-lg font-bold text-yellow-300">Votre éloquence légendaire entre en jeu.</span> Vous inclinez légèrement la tête, laissant le poids de votre réputation de mercenaire doué faire son œuvre.</p>
+
+                <p>« Mon cher ami, » dites-vous d'une voix grave et mesurée, « les âmes sombres méritent un prix sombre. Pour que ma lame frappe là où elle doit, je dois comprendre la source de leur retour. Quelle est la nature du mal que le Feu Sacré ne peut plus retenir ? »</p>
+
+                <p>L'homme voûté tressaillit, visiblement impressionné par votre assurance. « Très bien, chevalier. Ces âmes étaient autrefois des héros ou des rois, des personnes dont les actes étaient si grands qu'elles refusaient le repos. Elles reviennent quand l'équilibre du monde est menacé. Quant au Feu Sacré, il s'éteint. Plus le désespoir humain grandit, plus la flamme faiblit. Si elle s'éteint complètement... le monde est perdu. Le Sanctuaire est au bord de l'effondrement. »</p>
+                
+                <p>Vous avez maintenant une meilleure compréhension de l'enjeu. Vous savez que le temps presse.</p>
+
+                <h2 class="text-2xl mt-8 mb-4 text-center">Nouveaux Choix</h2>
+                <div class="flex flex-col gap-4">
+                    <button onclick="goToChapter('chapter4_hypotheque')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                        3. Utiliser votre **maîtrise arcanique** pour sceller le marché avec un serment magique et exiger la moitié de l'or immédiatement.
+                    </button>
+                    
+                    <button onclick="goToChapter('chapter4_depart')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                        4. Sentir l'urgence, prendre l'argent disponible et **partir immédiatement** pour la Forêt de Silvanus.
+                    </button>
+                </div>
+            </div>
+            
+            <!-- CHAPITRE 3 : L'ACCEPTATION PRÉCIPITÉE (Argent) -->
+            <div id="chapter3" class="chapter">
+                <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 3 : L'Or du Silence</h1>
+                
+                <!-- Illustration spécifique au Chapitre 3 (Placeholder thématique) -->
+                <div class="illustration">
+                    <img src="https://placehold.co/800x450/3A322A/E0B04C?text=LE+POIDS+DE+L'OR%0A(Main+et+Bourse)" 
+                         alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
+                </div>
+                
+                <p><span class="text-lg font-bold text-red-400">L'or. C'est tout ce qui compte.</span> Les souvenirs de votre château en ruine ne vous laissent aucun répit. Vous n'avez pas le temps de discuter de théologie avec un inconnu.</p>
+
+                <p>« Assez de murmures, » coupez-vous, votre voix rude résonnant dans le brouhaha. « Le prix est bon. Montrez-moi la première cible, et le reste est une affaire de logistique. Les cendres brûlent-elles ? »</p>
+
+                <p>L'homme voûté recula légèrement devant votre brusquerie. « Calmez-vous, chevalier. L'urgence est palpable, mais ces créatures ne sont pas des poulets sans tête. La première a été signalée à l'extérieur des remparts de la ville, près des ruines d'une ancienne tour de guet. J'ai un contact là-bas qui vous attendra à la nuit tombée. »</p>
+                
+                <p>Il vous remet une petite bourse contenant juste assez pour des provisions. Il ne vous donne pas plus de détails, visiblement refroidi par votre manque de courtoisie et d'intérêt pour l'histoire.</p>
+
+                <h2 class="text-2xl mt-8 mb-4 text-center">Nouveaux Choix</h2>
+                <div class="flex flex-col gap-4">
+                    <button onclick="goToChapter('chapter4_ruines')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                        5. Attendre la nuit, se préparer, et **rencontrer le contact** dans les ruines.
+                    </button>
+                    
+                    <button onclick="goToChapter('chapter4_seul')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                        6. Ignorer le contact, le temps c'est de l'argent. **Partir seul** vers les ruines dès maintenant.
+                    </button>
+                </div>
+            </div>
+            
+            <!-- CHAPITRE 4 (Ruines) : Rencontre Nocturne -->
+            <div id="chapter4_ruines" class="chapter">
+                <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 4 : Le Rendez-vous dans les Ombres</h1>
+
+                <!-- Illustration spécifique au Chapitre 4 (Placeholder thématique) -->
+                <div class="illustration">
+                    <img src="https://placehold.co/800x450/1C1C1C/E0B04C?text=RUINES+NOCTURNES%0A(Feu+de+Camp+et+Rôdeur)" 
+                         alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
+                </div>
+                
+                <p>Le soleil a glissé sous l'horizon, et l'air marin a laissé place à une brise froide et humide. Vous vous êtes équipé : la longue-épée est aiguisée, et vous avez tracé sur votre cuir la rune d'Arcane de Protection. En arrivant aux ruines de la tour de guet, vous trouvez un feu discret qui crépite dans les décombres.</p>
+
+                <p>Près du feu est assis un homme aux allures de rôdeur, l'arc posé à côté de lui. Il ne porte pas d'insigne. Il lève la main pour vous signaler d'approcher sans bruit. Il a un air sévère et fatigué. « Vous êtes le chevalier mercenaire ? Moi, c'est Lyraël. Le marchand m'a envoyé pour vous donner les détails que votre... empressement n'a pas permis d'obtenir. »</p>
+                
+                <p>Lyraël pointe du doigt une colline rocheuse à l'horizon. « Le Dark Soul est là. Un ancien général nommé Torvin. Il est réputé pour sa ruse et son armure lourde. Il apparaît et disparaît, laissant derrière lui une trainée de désespoir. Il faut l'attirer dans un piège ou frapper vite. Sa faiblesse réside dans son mépris pour la magie : il s'attend à un combat d'épée loyal, pas à un duel arcanique. »</p>
+
+                <h2 class="text-2xl mt-8 mb-4 text-center">Nouveaux Choix</h2>
+                <div class="flex flex-col gap-4">
+                    <button onclick="goToChapter('chapter5_magie')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                        7. Proposer à Lyraël de rester en retrait pour vous offrir un **support arcanique** discret.
+                    </button>
+                    
+                    <button onclick="goToChapter('chapter5_frappe')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                        8. Remercier Lyraël pour l'information, rejeter toute aide, et partir seul pour une **frappe rapide**.
+                    </button>
+                </div>
+            </div>
+            
+            <!-- CHAPITRE FICTIFS POUR LA DÉMO -->
+            <div id="chapter4_hypotheque" class="chapter">
+                <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 4 (Hypothèse) : La Magie du Contrat</h1>
+                <!-- Illustration Placeholder thématique -->
+                <div class="illustration">
+                    <img src="https://placehold.co/800x200/5A4B30/E0B04C?text=SERMENT+ARCANiQUE+(Lien+Magique)" 
+                         alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
+                </div>
+                <p>... Ceci est la suite de l'aventure après le choix 3. Vous recevez un acompte important, mais la magie vous lie au succès de la mission. <a href="#" onclick="goToChapter('chapter1')" class="text-blue-400 underline">Retour au début</a></p>
+            </div>
+            
+            <div id="chapter4_depart" class="chapter">
+                <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 4 (Départ) : Course contre la Montre</h1>
+                <!-- Illustration Placeholder thématique -->
+                <div class="illustration">
+                    <img src="https://placehold.co/800x200/42231A/E0B04C?text=COURSE+VERS+SILVANUS" 
+                         alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
+                </div>
+                <p>... Ceci est la suite de l'aventure après le choix 4. Vous partez immédiatement, évitant la foule. <a href="#" onclick="goToChapter('chapter1')" class="text-blue-400 underline">Retour au début</a></p>
+            </div>
+            
+            <div id="chapter4_seul" class="chapter">
+                <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 4 (Seul) : La Chasse Impatiente</h1>
+                <!-- Illustration Placeholder thématique -->
+                <div class="illustration">
+                    <img src="https://placehold.co/800x200/3A322A/E0B04C?text=LA+CHASSE+SOLITAIRE+(Erreur)" 
+                         alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
+                </div>
+                <p>... Ceci est la suite de l'aventure après le choix 6. Vous vous retrouvez face à la première Dark Soul sans préparation. <a href="#" onclick="goToChapter('chapter1')" class="text-blue-400 underline">Retour au début</a></p>
+            </div>
+
+            <div id="chapter5_magie" class="chapter">
+                <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 5 (Magie) : L'embuscade Arcanique</h1>
+                <!-- Illustration Placeholder thématique -->
+                <div class="illustration">
+                    <img src="https://placehold.co/800x200/1C1C1C/E0B04C?text=L'EMBUSCADE+ARCANiQUE" 
+                         alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
+                </div>
+                <p>... Ceci est la suite de l'aventure après le choix 7. <a href="#" onclick="goToChapter('chapter1')" class="text-blue-400 underline">Retour au début</a></p>
+            </div>
+            
+            <div id="chapter5_frappe" class="chapter">
+                <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 5 (Frappe) : Le Duel Impétueux</h1>
+                <!-- Illustration Placeholder thématique -->
+                <div class="illustration">
+                    <img src="https://placehold.co/800x200/2C2C2C/E0B04C?text=DUEL+IMPETUEUX+(Épée)" 
+                         alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
+                </div>
+                <p>... Ceci est la suite de l'aventure après le choix 8. <a href="#" onclick="goToChapter('chapter1')" class="text-blue-400 underline">Retour au début</a></p>
+            </div>
+            
+        </div>
+        
+    </div>
+
+    <script>
+        // Configuration des ambiances TTS
+        const TTS_CONFIG = {
+            chapter1: {
+                prompt: "Bruit de foule, cris de marchands, cliquetis de monnaie et une musique de luth lointaine, le tout dans une ambiance médiévale. Jouez ceci en boucle.",
+                voice: "Charon", // Voix neutre
+                loop: true
+            },
+            chapter2: {
+                prompt: "Murmures bas, ambiance sombre et le bruit du vent froid s'engouffrant dans une ruelle. Jouez ceci en boucle.",
+                voice: "Enceladus", // Voix breathy
+                loop: true
+            },
+            chapter3: {
+                prompt: "Bruit sec de monnaie que l'on jette, suivi d'un silence tendu dans la foule.",
+                voice: "Kore", // Voix ferme pour un événement
+                loop: false
+            },
+            chapter4_ruines: {
+                prompt: "Crépitement d'un petit feu, vent froid soufflant autour des pierres, et le cri lointain d'une chouette. Jouez ceci en boucle.",
+                voice: "Leda", // Voix légère, un peu eerie
+                loop: true
+            },
+            // Les autres chapitres non développés n'auront pas d'ambiance pour l'instant.
+        };
+
+        let audioSource = null;
+        let audioContext = null;
+        let isAudioInitialized = false;
+
+        // Fonction d'initialisation de l'AudioContext par interaction utilisateur
+        function initAudioContext() {
+            if (isAudioInitialized) return;
+
+            try {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                isAudioInitialized = true;
+                document.getElementById('audio-status').textContent = 'Système audio activé. Chargement de l\'ambiance...';
+                document.getElementById('audio-init-button').disabled = true;
+                document.getElementById('audio-init-button').textContent = 'Audio Actif';
+                
+                // Charger l'audio du chapitre actuel (chapter1)
+                const currentChapter = document.querySelector('.chapter.active').id;
+                fetchAndPlayAmbientAudio(currentChapter).catch(err => {
+                    console.error("Erreur au chargement initial de l'audio:", err);
+                    // Le statut sera mis à jour dans la fonction elle-même
+                });
+
+            } catch (e) {
+                document.getElementById('audio-status').textContent = 'Erreur: Le navigateur ne prend pas en charge AudioContext.';
+            }
+        }
+
+        // Convertit une chaîne Base64 en ArrayBuffer
+        function base64ToArrayBuffer(base64) {
+            const binaryString = atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        // --- Logique d'appel de l'API TTS et de lecture ---
+
+        async function fetchAndPlayAmbientAudio(chapterId) {
+            const statusDiv = document.getElementById('audio-status');
+            const config = TTS_CONFIG[chapterId];
+            
+            if (!isAudioInitialized) return;
+
+            // Arrêter l'audio précédent
+            if (audioSource) {
+                audioSource.stop();
+                audioSource = null;
+            }
+
+            if (!config) {
+                statusDiv.textContent = 'Aucune ambiance définie pour ce chapitre.';
+                return; 
+            }
+
+            statusDiv.textContent = `Génération de l'ambiance : ${chapterId}... (Ceci peut prendre quelques secondes)`;
+            
+            const maxRetries = 3;
+            let base64AudioData = null;
+            const sampleRate = 24000; // Fréquence d'échantillonnage fixe pour le modèle TTS
+
+            for (let attempt = 0; attempt < maxRetries; attempt++) {
+                try {
+                    const payload = {
+                        contents: [{
+                            parts: [{ text: config.prompt }]
+                        }],
+                        generationConfig: {
+                            responseModalities: ["AUDIO"],
+                            speechConfig: {
+                                voiceConfig: {
+                                    prebuiltVoiceConfig: { voiceName: config.voice }
+                                }
+                            }
+                        },
+                        model: "gemini-2.5-flash-preview-tts"
+                    };
+                    
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+                    
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    if (!response.ok) {
+                        // Afficher une erreur plus claire pour les problèmes d'API (401, 500, etc.)
+                        const errorText = await response.text();
+                        console.error("API Error Response:", errorText);
+                        throw new Error(`Erreur API: Statut ${response.status}. Veuillez vérifier la clé/le modèle.`);
+                    }
+                    
+                    const result = await response.json();
+                    const part = result?.candidates?.[0]?.content?.parts?.[0];
+                    
+                    base64AudioData = part?.inlineData?.data;
+                    
+                    if (base64AudioData) {
+                        break; // Succès
+                    } else {
+                        throw new Error("Données audio manquantes dans la réponse.");
+                    }
+
+                } catch (error) {
+                    console.error(`Tentative ${attempt + 1} échouée:`, error);
+                    if (attempt === maxRetries - 1) {
+                        statusDiv.textContent = `Échec de la génération audio: ${error.message.substring(0, 50)}...`;
+                        throw error;
+                    }
+                    const delay = Math.pow(2, attempt) * 1000;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+            }
+            
+            if (!base64AudioData) {
+                statusDiv.textContent = 'Erreur: Aucune donnée audio générée après les tentatives.';
+                return;
+            }
+
+            // Traitement et Lecture (données PCM 16-bit)
+            const pcmData = base64ToArrayBuffer(base64AudioData);
+            
+            // Créer un buffer AudioContext pour les données PCM 16 bits (mono)
+            const numberOfChannels = 1;
+            const buffer = audioContext.createBuffer(numberOfChannels, pcmData.byteLength / 2, sampleRate);
+            const nowBuffering = buffer.getChannelData(0);
+
+            // Convertir le PCM 16-bit (Int16Array) en Float32Array pour AudioBuffer
+            const pcm16 = new Int16Array(pcmData);
+            for (let i = 0; i < pcm16.length; i++) {
+                // Normalisation: Int16 va de -32768 à 32767. On divise par 32768 (2^15).
+                nowBuffering[i] = pcm16[i] / 32768;
+            }
+
+            statusDiv.textContent = `Ambiance chargée : ${chapterId}`;
+            
+            // Créer la source de lecture
+            audioSource = audioContext.createBufferSource();
+            audioSource.buffer = buffer;
+            
+            if (config.loop) {
+                audioSource.loop = true;
+            } else {
+                audioSource.onended = () => { audioSource = null; };
+            }
+            
+            audioSource.connect(audioContext.destination);
+            audioSource.start(0);
+        }
+
+        // Fonction JavaScript pour changer de chapitre
+        function goToChapter(chapterId) {
+            // 1. Désactiver le chapitre actuellement actif
+            const currentChapter = document.querySelector('.chapter.active');
+            if (currentChapter) {
+                currentChapter.classList.remove('active');
+            }
+            
+            // 2. Activer le nouveau chapitre
+            const nextChapter = document.getElementById(chapterId);
+            if (nextChapter) {
+                nextChapter.classList.add('active');
+                // Optionnel : faire défiler vers le haut de la page pour le nouveau chapitre
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                console.error('Chapitre non trouvé :', chapterId);
+                // Si le chapitre n'existe pas, revenez à l'accueil pour éviter l'erreur
+                document.getElementById('chapter1').classList.add('active');
+            }
+
+            // 3. Charger et jouer l'ambiance si le système est initialisé
+            if (isAudioInitialized) {
+                fetchAndPlayAmbientAudio(chapterId).catch(err => {
+                    console.error("Erreur Audio:", err);
+                    // Le statut est déjà mis à jour dans la fonction fetchAndPlayAmbientAudio
+                });
+            }
+        }
+    </script>
+</body>
+</html>
