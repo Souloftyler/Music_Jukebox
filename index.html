@@ -150,14 +150,121 @@
             return roman;
         }
 
+        // --- Configuration et Utilitaire API ---
+        const apiKey = ""; // L'API key est fournie par l'environnement Canvas
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key=${apiKey}`;
 
-        // --- Fonctions de Génération d'Image ---
+        // Utility pour la relance avec backoff exponentiel
+        async function retryFetch(url, options, maxRetries = 3) {
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (response.status === 429 && i < maxRetries - 1) {
+                        const delay = Math.pow(2, i) * 1000 + Math.random() * 1000;
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        continue;
+                    }
+                    if (!response.ok) {
+                        const errorBody = await response.text();
+                        throw new Error(`HTTP error! status: ${response.status}. Body: ${errorBody}`);
+                    }
+                    return response;
+                } catch (error) {
+                    if (i === maxRetries - 1) {
+                        throw error;
+                    }
+                    const delay = Math.pow(2, i) * 1000 + Math.random() * 1000;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+            }
+        }
+
+        // --- Fonctions de Gestion des Illustrations (Dynamique AI avec Fallback SVG) ---
+
+        /**
+         * Retourne le contenu SVG contextuel basé sur l'ID du Folio (Fallback)
+         * Utilise des chemins SVG simples inspirés de Lucide Icons.
+         */
+        function getSvgFallback(folioId) {
+            let svgPath = "";
+            let iconClass = "h-9 w-9 text-royal-blue";
+            let fallbackTitle = "Illustration par défaut";
+
+            switch (folioId) {
+                case "start":
+                    // Livre ouvert (BookOpen)
+                    svgPath = '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>'; 
+                    fallbackTitle = "Grimoire Ouvert";
+                    break;
+                case "folio_1":
+                    // Oeil barré (EyeOff)
+                    svgPath = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.47 9.47 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.07 2.92M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path d="M2 2l20 20"/>'; 
+                    fallbackTitle = "Cachette et Espionnage";
+                    break;
+                case "folio_2":
+                    // Épée et Bouclier stylisés
+                    svgPath = '<path d="M20 9l-7-7-3 3-7 7 3 3 7 7 3-3z"/><path d="M12 4.5l-2.5 2.5"/><path d="M12 19.5l-2.5-2.5"/>'; 
+                    fallbackTitle = "Conflit Imminent";
+                    iconClass = "h-9 w-9 text-red-700";
+                    break;
+                case "folio_4":
+                    // Boussole (Compass)
+                    svgPath = '<path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M9 19 12 5 15 19 9 19z"/><path d="m14 14-3 3-3-3"/>';
+                    fallbackTitle = "Carte et Trésor";
+                    break;
+                case "folio_5":
+                    // Serrure (Lock) + Symbole Brisé
+                    svgPath = '<rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><path d="M10 16h4"/><path d="M12 14v4"/>'; 
+                    fallbackTitle = "Sceau Brisé";
+                    break;
+                case "folio_6":
+                    // Flamme (Dragon/Danger)
+                    svgPath = '<path d="M8.5 14.5A2.5 2.5 0 0 0 7 12c0-1.25.75-2.08 1.5-2.5 1-.58 2.5-1.25 2.5-2.5 0-.8-.5-1.5-1-2"/><path d="M15.5 14.5A2.5 2.5 0 0 1 17 12c0-1.25-.75-2.08-1.5-2.5-1-.58-2.5-1.25-2.5-2.5 0-.8.5-1.5 1-2"/><path d="M18 13.5A6.47 6.47 0 0 0 12 2c-3.1 0-6 2-6 5.5"/><path d="M12 22a4 4 0 0 0-4-4V6a4 4 0 0 0 4-4a4 4 0 0 0 4 4v12a4 4 0 0 0-4 4z"/>';
+                    iconClass = "h-10 w-10 text-red-500";
+                    fallbackTitle = "Menace Draconique";
+                    break;
+                case "folio_7":
+                    // Symbole d'arrêt ou d'impasse (Square)
+                    svgPath = '<rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><path d="M9 9l6 6"/><path d="M15 9l-6 6"/>';
+                    fallbackTitle = "Impasse";
+                    iconClass = "h-8 w-8 text-ink-dark";
+                    break;
+                case "folio_8":
+                    // Escalier ou trappe (Stairs)
+                    svgPath = '<path d="m5 17 4-4 4 4 4-4 4 4"/><path d="m5 21 4-4 4 4 4-4 4 4"/><path d="M12 4h.01"/>'; 
+                    fallbackTitle = "Échappatoire Secrète";
+                    break;
+                case "end_fail":
+                    // Crâne (Skull)
+                    svgPath = '<circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6"/><path d="M9 9l6 6"/>'; 
+                    iconClass = "h-9 w-9 text-red-900";
+                    fallbackTitle = "Mort/Échec";
+                    break;
+                case "end_success":
+                    // Soleil (Sun)
+                    svgPath = '<circle cx="12" cy="12" r="10"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="m2 12h2"/><path d="m20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>'; 
+                    iconClass = "h-10 w-10 text-ornate-gold";
+                    fallbackTitle = "Victoire";
+                    break;
+                default:
+                    // Encre et Plume (Ink/Quill)
+                    svgPath = '<path d="M12 20h9"/><path d="M16.5 7.5l-9 9c-.63.63-.63 1.65 0 2.28L10 22l4.5-4.5 5.74-5.74a.5.5 0 0 0 .71 0z"/><path d="M12 12l2.5 2.5"/>'; 
+                    fallbackTitle = "Mystère";
+            }
+
+            // SVG structure
+            const svgContent = `
+                <svg class="${iconClass} mb-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    ${svgPath}
+                </svg>
+            `;
+
+            return { svgContent, fallbackTitle };
+        }
 
         // Fonction pour générer le prompt stylisé pour l'IA
         function getFolioPrompt(folioId) {
-            // Style ciblé : enluminure de grimoire médiéval fantastique (MIS À JOUR)
             const defaultStyle = "enluminure détaillée, style dessin à l'encre médiéval, couleurs vives sur parchemin, ornementation florale et dorée, haute fantaisie, vue rapprochée de l'illustration.";
-            const folio = gameData[folioId];
             
             let specificScene;
             switch (folioId) {
@@ -189,92 +296,86 @@
                     specificScene = "Un rouleau de parchemin ancien avec des écritures illisibles et une boussole arcanique.";
             }
 
-            return `${specificScene}. ${defaultStyle}`;
+            return `${specificScene}. ${defaultStyle}`; 
         }
         
-        // Fonction pour générer l'image via l'API (avec backoff)
-        async function generateIllustration(prompt, targetElementId) {
-            const maxRetries = 5;
-            const apiKey = ""; 
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key=${apiKey}`;
-
-            // Afficher l'état de chargement
-            // Nouveau style de placeholder pour une meilleure intégration visuelle avec une plume animée
-            const loadingHtml = `
-                <div id="image-placeholder" class="float-left mr-4 mb-2 w-32 h-32 flex flex-col items-center justify-center border border-ornate-gold shadow-lg rounded-lg p-1 bg-parchment-base text-ink-dark/70">
-                    <!-- SVG de Plume d'écriture animé pour suggérer le dessin/écriture -->
-                    <svg class="h-10 w-10 text-royal-blue animate-bounce" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M20.24 12.24a6 6 0 0 0-8.48-8.48L5.7 10.3c-.63.63-.63 1.65 0 2.28L10 17l4.5-4.5 5.74-5.74a.5.5 0 0 1 .71 0z"/>
-                        <path d="M2 22l6-6"/>
-                    </svg>
-                    <span class="mt-2 text-xs sm:text-sm text-ink-dark/80 font-body italic">Enluminure en cours...</span>
-                </div>
-            `;
+        /**
+         * Génère une image dynamique via l'API Google et l'affiche, ou un placeholder SVG en cas d'échec.
+         * @param {string} prompt Le prompt détaillé pour l'image.
+         * @param {string} targetElementId L'ID de l'élément où insérer l'image.
+         */
+        async function generateIllustration(folioId, targetElementId) {
+            const prompt = getFolioPrompt(folioId);
             const folioTextContent = document.getElementById(targetElementId);
             const currentText = folioTextContent.innerHTML;
-            folioTextContent.innerHTML = loadingHtml + currentText;
             
-            for (let attempt = 0; attempt < maxRetries; attempt++) {
-                try {
-                    const payload = { 
-                        instances: [{ prompt: prompt }], 
-                        parameters: { "sampleCount": 1 } 
-                    };
-
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-
-                    const result = await response.json();
-                    
-                    if (result.predictions && result.predictions.length > 0 && result.predictions[0].bytesBase64Encoded) {
-                        const base64Data = result.predictions[0].bytesBase64Encoded;
-                        const imageUrl = `data:image/png;base64,${base64Data}`;
-
-                        // Créer l'élément Image
-                        const img = document.createElement('img');
-                        img.src = imageUrl;
-                        img.alt = prompt.substring(0, 50) + '...';
-                        // Classes affinées pour le style enluminure (float-left, coins arrondis, bordure dorée, padding)
-                        img.className = "float-left mr-4 mb-2 w-32 h-32 object-cover border border-ornate-gold shadow-lg rounded-lg p-1 bg-parchment-base";
-
-                        // Remplacer le placeholder par l'image
-                        const placeholder = document.getElementById('image-placeholder');
-                        if (placeholder) {
-                            placeholder.parentNode.insertBefore(img, placeholder);
-                            placeholder.remove();
-                        }
-                        return;
-                    }
-                } catch (error) {
-                    console.error(`Attempt ${attempt + 1} failed:`, error);
-                    if (attempt < maxRetries - 1) {
-                        // Backoff exponentiel
-                        const delay = Math.pow(2, attempt) * 1000;
-                        await new Promise(resolve => setTimeout(resolve, delay));
-                    }
-                }
-            }
-
-            // Afficher le fallback SVG en cas d'échec
-            const fallbackSvg = `
-                <div class="float-left mr-4 mb-2 w-32 h-32 flex items-center justify-center border border-red-700/70 shadow-lg rounded-lg p-1 bg-parchment-base">
-                    <svg class="w-10 h-10 text-red-700/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10" />
-                        <line x1="15" y1="9" x2="9" y2="15" />
-                        <line x1="9" y1="9" x2="15" y2="15" />
+            // 1. Créer et insérer l'indicateur de chargement (Spinner)
+            const loadingHtml = `
+                <div id="image-loading-container" class="enluminure-frame float-left mr-4 mb-2 w-32 h-32 flex flex-col items-center justify-center text-center bg-parchment-shadow/70 text-ink-dark/70 transform rotate-[-0.5deg]">
+                    <svg class="animate-spin h-6 w-6 text-royal-blue" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
+                    <span class="mt-2 text-xs font-body">Création de l'Enluminure...</span>
                 </div>
             `;
-            const placeholder = document.getElementById('image-placeholder');
-            if (placeholder) {
-                placeholder.outerHTML = fallbackSvg;
+            // Insérer le chargement AVANT le texte pour qu'il flotte correctement
+            folioTextContent.innerHTML = loadingHtml + currentText;
+            
+            const loadingContainer = document.getElementById('image-loading-container');
+
+            // 2. Préparer la requête API
+            const payload = {
+                instances: [{ prompt: prompt }],
+                parameters: { "sampleCount": 1 }
+            };
+
+            try {
+                const response = await retryFetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+                const base64Data = result?.predictions?.[0]?.bytesBase64Encoded;
+                
+                if (base64Data) {
+                    const imageUrl = `data:image/png;base64,${base64Data}`;
+                    
+                    // Créer l'élément Image
+                    const img = document.createElement('img');
+                    img.src = imageUrl;
+                    img.alt = `Enluminure de la scène: ${prompt}`;
+                    // Utiliser la même classe de cadre que le loading container
+                    img.className = "enluminure-frame float-left mr-4 mb-2 w-32 h-32 object-cover bg-parchment-base";
+
+                    // Remplacer le conteneur de chargement par l'image
+                    if (loadingContainer) {
+                        loadingContainer.parentNode.insertBefore(img, loadingContainer);
+                        loadingContainer.remove();
+                    }
+                } else {
+                    // Si l'API ne retourne pas de données, utiliser le fallback SVG
+                    throw new Error("API did not return image data.");
+                }
+
+            } catch (error) {
+                console.error("Erreur lors de la génération de l'image (l'IA est peut-être temporairement indisponible) :", error);
+                
+                // --- LOGIC POUR LE FALLBACK SVG CONTEXTUEL ---
+                const { svgContent, fallbackTitle } = getSvgFallback(folioId);
+                
+                if (loadingContainer) {
+                    // Conserver les classes de dimensionnement et de flottement, changer la couleur
+                    loadingContainer.className = "enluminure-frame float-left mr-4 mb-2 w-32 h-32 flex flex-col items-center justify-center text-center bg-parchment-shadow/70 text-ink-dark/70 transform rotate-[-0.5deg]";
+                    loadingContainer.innerHTML = `
+                        ${svgContent}
+                        <span class="mt-1 text-xs font-semibold font-body">${fallbackTitle}</span>
+                        <span class="text-[0.6rem] px-1 font-body italic">(Placeholder)</span>
+                    `;
+                }
+                // --- FIN LOGIC ---
             }
         }
 
@@ -294,13 +395,11 @@
             folioTextContent.innerHTML = '';
             
             // 2. Insérer le texte (enveloppé dans un paragraphe pour la lettrine)
-            // L'espace pour l'image est laissé vide au début.
             const initialText = `<p class="story-paragraph">${folio.text.replace(/\n/g, '<br>')}</p>`;
             folioTextContent.innerHTML = initialText;
 
-            // 3. Obtenir le prompt et lancer la génération d'image de manière asynchrone
-            const prompt = getFolioPrompt(folioId);
-            generateIllustration(prompt, 'folio-text-content'); // Ajoute le loader et le remplace par l'image
+            // 3. Obtenir le prompt et lancer la fonction de gestion d'image dynamique (async)
+            generateIllustration(folioId, 'folio-text-content'); 
 
             const choicesContainer = document.getElementById('folio-choices');
             choicesContainer.innerHTML = ''; // Nettoyer les anciens choix
@@ -418,6 +517,15 @@
             margin-bottom: 1.5rem;
             font-weight: 700;
         }
+
+        /* Nouveau style pour le cadre d'enluminure (appliqué au chargement et à l'image) */
+        .enluminure-frame {
+            border: 2px solid #cdac60; /* Ornementation dorée */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 0.5rem; /* Coins légèrement arrondis */
+            padding: 4px;
+            transition: all 0.3s;
+        }
         
         /* Styles spécifiques au jeu pour le premier mot en capitale (Lettrine) */
         /* Cible le premier paragraphe du contenu textuel, juste après l'image flottante */
@@ -454,7 +562,7 @@
             
             <!-- Conteneur du Texte de l'histoire et de l'Illustration -->
             <div id="folio-text-content" class="manuscript mb-6 text-xl">
-                <!-- L'image générée sera insérée ici par JS, flottante à gauche -->
+                <!-- L'image IA, le spinner ou le SVG de fallback sera inséré ici par JS -->
             </div>
 
             <!-- Conteneur des Choix -->
