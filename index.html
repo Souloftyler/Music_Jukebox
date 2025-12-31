@@ -6,84 +6,127 @@
     <title>Kaelen : Le Mercenaire et les Dark Souls</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Merriweather:wght@300;400&display=swap');
+        /* Importation des polices : Uncial Antiqua (Titres) et IM Fell English (Corps) */
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=IM+Fell+English:ital@0;1&family=Uncial+Antiqua&display=swap');
         
-        /* Styles personnalisés pour l'immersion Dark Fantasy */
+        /* Styles pour l'immersion Grimoire Royal High Fantasy */
         body {
-            font-family: 'Merriweather', serif;
-            background-color: #1a1a1a; 
-            color: #d1d5db; /* Texte gris clair */
+            font-family: 'IM Fell English', serif; 
+            /* Fond High Fantasy : Bleu Saphir ou Vert Majestueux */
+            background-color: #3e5c76; /* Bleu Azur Profond */
+            color: #301f14; /* Encre très foncée */
             min-height: 100vh;
             display: flex;
-            flex-direction: column; /* Ajouté pour centrer le contenu et l'audio-status */
+            flex-direction: column; 
             justify-content: flex-start;
             align-items: center;
-            padding: 10px 0; /* Padding réduit pour le mobile */
+            padding: 20px 0;
+            /* Ajout d'une texture pour l'ambiance royale/historique */
+            background-image: linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 15px 15px;
         }
 
         .audio-controls {
             max-width: 800px;
             width: 95%;
-            margin-bottom: 15px; /* Marge réduite pour le mobile */
-            padding: 10px;
-            background-color: #4a4a4a;
-            border: 1px solid #e0b04c;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #fcf4d4; /* Parchemin clair */
+            border: 2px solid #3e5c76; /* Bordure Bleue */
             border-radius: 8px;
             text-align: center;
         }
 
         .container {
             max-width: 800px;
-            width: 98%; /* 98% pour plus de fluidité mobile */
-            background-color: #2c2c2c;
-            border: 4px solid #5a4b30; /* Cadre sombre et or */
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+            width: 95%;
+            /* Fond Parchemin plus clair et jaune (authentique) */
+            background-color: #fcf4d4;
+            /* Bordure Noble : Bleu Saphir */
+            border: 8px solid #3e5c76; 
+            box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.4);
+            /* Petit effet de page courbée */
+            transform: rotateZ(0.2deg); 
+            line-height: 1.7; 
+            letter-spacing: 0.05em; 
+            padding: 1.5rem 2rem; 
         }
         
         h1, h2 {
-            font-family: 'Cinzel', serif;
-            color: #e0b04c; /* Or antique */
+            font-family: 'Uncial Antiqua', serif; 
+            color: #d4af37; /* Or Classique pour les titres */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); 
         }
         
         .chapter-title {
-            border-bottom: 2px solid #5a4b30;
+            border-bottom: 2px solid #d4af37; /* Bordure en Or */
             padding-bottom: 1rem;
             margin-bottom: 1.5rem;
+            font-size: 2.5rem; 
         }
         
+        /* FLOATING ENLUMINURE/ILLUSTRATION */
+        .illustration {
+            float: left;
+            margin-right: 20px; 
+            margin-bottom: 10px; 
+            max-width: 45%; 
+            width: 100%;
+            padding: 8px;
+            background-color: #e0d9c4; 
+            border: 4px double #3e5c76; /* Double bordure Bleue/Royale */
+            border-radius: 2px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px; 
+            text-align: center;
+            overflow: hidden; 
+        }
+
         .illustration img {
             width: 100%;
-            /* Hauteur auto pour le responsive */
             height: auto; 
             object-fit: cover;
-            /* Assurer que l'image ne dépasse pas la largeur du conteneur sur mobile */
             max-width: 100%; 
+            border: 1px solid #d4af37; /* Bordure Or autour de l'image */
+            display: none; 
+        }
+
+        .illustration .loading-text {
+            color: #301f14;
+            font-family: 'Uncial Antiqua', serif;
+            font-size: 1rem;
+            padding: 20px;
         }
         
+        /* S'assurer que le texte s'écoule autour de l'image flottante */
+        .chapter {
+             overflow: auto; 
+        }
+
         p {
-            line-height: 1.8;
             margin-bottom: 1rem;
             text-align: justify;
         }
 
         .choice-button {
             transition: all 0.2s;
-            background-color: #4a4a4a;
-            border: 1px solid #e0b04c;
-            color: #d1d5db;
-            /* Assurer que les boutons sont bien visibles et cliquables sur mobile */
+            background-color: #3e5c76; /* Fond Bleu Royal */
+            border: 1px solid #d4af37; /* Bordure Or */
+            color: #fff8e1; /* Texte blanc cassé */
             min-height: 48px; 
             text-align: left;
         }
 
         .choice-button:hover {
-            background-color: #6a6a6a;
+            background-color: #5c85aa; /* Bleu plus clair au survol */
             color: #ffffff;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             transform: translateY(-1px);
         }
         
-        /* Cacher les chapitres non actifs */
         .chapter:not(.active) {
             display: none;
         }
@@ -94,225 +137,865 @@
     <!-- Contrôles et statut de l'audio -->
     <div class="audio-controls">
         <button id="audio-init-button" class="choice-button px-4 py-2 text-sm" onclick="initAudioContext()">
-            Activer l'Audio (Requis)
+            Activer l'Ambiance Sonore (Requis)
         </button>
-        <div id="audio-status" class="mt-2 text-yellow-400 text-sm">Système audio inactif.</div>
+        <div id="audio-status" class="mt-2 text-[#3e5c76] text-sm">Système audio inactif.</div>
     </div>
     
     <div class="container rounded-lg">
         
-        <!-- Contenu principal avec padding -->
-        <div class="p-4 md:p-8"> <!-- Padding ajusté pour le mobile -->
+        <!-- Contenu principal -->
+        
+        <!-- CHAPITRE I : DÉBUT DE L'AVENTURE -->
+        <div id="chapter1" class="chapter active">
+            <h1 class="text-3xl font-bold text-center chapter-title">Chapitre I : Le Marché du Dragon d'Or</h1>
             
-            <!-- CHAPITRE 1 : DÉBUT DE L'AVENTURE -->
-            <div id="chapter1" class="chapter active">
-                <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 1 : Le Marché des Murmures Oubliés</h1>
-                
-                <!-- Illustration spécifique au Chapitre 1 -->
-                <div class="illustration">
-                    <img src="http://googleusercontent.com/image_generation_content/20" 
-                         alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
-                </div>
-                
-                <p>Le soleil de midi dardait ses rayons impitoyables sur les étals colorés du marché de Port-Éclat, inondant l'air d'un mélange entêtant d'épices exotiques, de poisson frais et de sueur humaine. Vous, Sir Kaelen, ou plutôt, Kaelen le mercenaire comme on vous nommait désormais, fauchiez le tumulte de la foule avec l'aisance d'un homme qui avait vu bien des chaos. Votre lourd manteau de voyage dissimulait en partie l'armure abîmée que vous portiez encore sous vos vêtements civils.</p>
-                
-                <p>Une voix rauque vous interpella depuis l'ombre d'un auvent. "Psst ! Le grand costaud ! Un travail pour vos talents, peut-être ?"</p>
-                
-                <p>Un homme petit et voûté vous fixa avec des yeux vifs. "Des histoires de... *revenants*. Pas les simples morts-vivants. Non, ceux-ci sont différents. Plus sombres. Plus *anciens*. Les *Dark Souls*."</p>
-                
-                <p>Il sortit une petite bourse. "Je vous paierai grassement pour chaque âme renvoyée. Leur seule faiblesse : leurs cendres doivent être rapportées au Feu Sacré du Sanctuaire d'Ashwood."</p>
-
-                <h2 class="text-2xl mt-8 mb-4 text-center">Vos Choix</h2>
-                <div class="flex flex-col gap-4">
-                    <!-- Bouton 1 -->
-                    <button onclick="goToChapter('chapter2')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
-                        1. Utiliser votre éloquence (Art Arcanique) pour **demander plus de détails** sur ces "Dark Souls" et le Feu Sacré.
-                    </button>
-                    
-                    <!-- Bouton 2 -->
-                    <button onclick="goToChapter('chapter3')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
-                        2. **Accepter la mission** sans plus de questions, pressé par l'argent et l'urgence.
-                    </button>
-                </div>
+            <!-- Illustration spécifique au Chapitre 1 - FLOATING LEFT (Enluminure) -->
+            <div id="illustration-chapter1" class="illustration">
+                <div class="loading-text">Génération de l'Enluminure...</div>
+                <img id="chapter1_img" src="" alt="" class="rounded-lg mb-4">
             </div>
             
-            <!-- CHAPITRE 2 : L'ÉLOQUENCE ET LE SAVOIR (Détails) -->
-            <div id="chapter2" class="chapter">
-                <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 2 : L'Interrogatoire Subtil</h1>
-                
-                <!-- Illustration spécifique au Chapitre 2 -->
-                <div class="illustration">
-                    <img src="http://googleusercontent.com/image_generation_content/21" 
-                         alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
-                </div>
-                
-                <p><span class="text-lg font-bold text-yellow-300">Votre éloquence légendaire entre en jeu.</span> Vous inclinez légèrement la tête, laissant le poids de votre réputation de mercenaire doué faire son œuvre.</p>
+            <p class="first-paragraph">Le soleil de midi illuminait de ses rayons dorés le Marché du Dragon d'Or, le cœur vibrant de Port-Éclat. L'air était vif, empli du parfum des épices lointaines et du cliquetis des artisans. Vous, Sir Kaelen, ou plutôt, Kaelen le mercenaire, traversiez la foule avec l'assurance d'un homme qui a jadis porté les plus nobles armoiries. Votre lourd manteau de voyage, bien que modeste, ne pouvait masquer entièrement la noblesse de votre maintien. L'acier de votre ancienne gloire est depuis longtemps vendu, mais votre réputation, elle, demeure.</p>
+            
+            <p>Une voix discrète vous interpella depuis l'ombre d'une tente richement brodée. "Psst ! Le grand costaud ! Une quête digne de votre courage, peut-être ?"</p>
+            
+            <p>Un homme petit et élégamment vêtu vous fixa avec des yeux graves. "Des histoires de... revenants. Pas les simples esprits. Non, ceux-ci sont différents. Plus puissants. Plus anciens. Les Dark Souls."</p>
+            
+            <p>Il sortit une petite bourse ouvragée. "Je vous paierai grassement pour chaque âme renvoyée. Leur seule faiblesse : leurs cendres doivent être rapportées au Feu Sacré du Sanctuaire d'Ashwood."</p>
 
-                <p>« Mon cher ami, » dites-vous d'une voix grave et mesurée, « les âmes sombres méritent un prix sombre. Pour que ma lame frappe là où elle doit, je dois comprendre la source de leur retour. Quelle est la nature du mal que le Feu Sacré ne peut plus retenir ? »</p>
-
-                <p>L'homme voûté tressaillit, visiblement impressionné par votre assurance. « Très bien, chevalier. Ces âmes étaient autrefois des héros ou des rois, des personnes dont les actes étaient si grands qu'elles refusaient le repos. Elles reviennent quand l'équilibre du monde est menacé. Quant au Feu Sacré, il s'éteint. Plus le désespoir humain grandit, plus la flamme faiblit. Si elle s'éteint complètement... le monde est perdu. Le Sanctuaire est au bord de l'effondrement. »</p>
+            <div class="flex flex-col gap-4 mt-8">
+                <!-- Choix 1 -->
+                <button onclick="goToChapter('chapter2')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    1. Utiliser votre éloquence (Art de la Négociation) pour **demander plus de détails** sur ces "Dark Souls" et le Feu Sacré. (Investigation)
+                </button>
                 
-                <p>Vous avez maintenant une meilleure compréhension de l'enjeu. Vous savez que le temps presse.</p>
+                <!-- Choix 2 -->
+                <button onclick="goToChapter('chapter3')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    2. **Accepter la mission** sans plus de questions, pressé par l'argent, en réclamant immédiatement un plan et une cible. (Empressement)
+                </button>
 
-                <h2 class="text-2xl mt-8 mb-4 text-center">Nouveaux Choix</h2>
-                <div class="flex flex-col gap-4">
-                    <button onclick="goToChapter('chapter4_hypotheque')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
-                        3. Utiliser votre **maîtrise arcanique** pour sceller le marché avec un serment magique et exiger la moitié de l'or immédiatement.
-                    </button>
-                    
-                    <button onclick="goToChapter('chapter4_depart')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
-                        4. Sentir l'urgence, prendre l'argent disponible et **partir immédiatement** pour la Forêt de Silvanus.
-                    </button>
-                </div>
+                <!-- Choix 3 (Nouveau) -->
+                <button onclick="goToChapter('chapter1_3')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    3. **Interroger l'homme** sur ses motifs et son implication : pourquoi ne gère-t-il pas la menace lui-même ? (Méthode)
+                </button>
+            </div>
+        </div>
+        
+        <!-- CHAPITRE I_3 : LE DOUTE ET L'ANALYSE (Motifs) -->
+        <div id="chapter1_3" class="chapter">
+            <h1 class="text-3xl font-bold text-center chapter-title">Chapitre I : L'Interrogation du Consulat</h1>
+            
+            <!-- Illustration spécifique au Chapitre I_3 - FLOATING LEFT (Enluminure) -->
+            <div id="illustration-chapter1_3" class="illustration">
+                <div class="loading-text">Génération de l'Enluminure...</div>
+                <img id="chapter1_3_img" src="" alt="" class="rounded-lg mb-4">
             </div>
             
-            <!-- CHAPITRE 3 : L'ACCEPTATION PRÉCIPITÉE (Argent) -->
-            <div id="chapter3" class="chapter">
-                <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 3 : L'Or du Silence</h1>
+            <p class="first-paragraph">Vous croisez les bras, votre regard d'acier fixant l'homme. « Une quête digne de héros, dite-vous, confiée à un mercenaire. Qui êtes-vous pour distribuer cette tâche ? »</p>
+
+            <p>L'homme tousse, mal à l'aise, puis se ressaisit. « Mon nom est Alaric. Je suis un émissaire du Consulat du Savoir. La Garde Royale est trop lente. Quant à mes motifs, le Consulat a grand intérêt à maintenir l'équilibre arcanique. Le paiement est garanti par les fonds de recherche de l'Académie de Cendre, un lieu connu pour ses expériences délicates. »</p>
+
+            <div class="flex flex-col gap-4 mt-8">
+                <!-- Choix 4 -->
+                <button onclick="goToChapter('chapter2')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    4. Accepter son explication, mais **demander poliment des détails** sur ces Dark Souls et le Feu Sacré. (Priorité au savoir)
+                </button>
                 
-                <!-- Illustration spécifique au Chapitre 3 -->
-                <div class="illustration">
-                    <img src="http://googleusercontent.com/image_generation_content/22" 
-                         alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
-                </div>
+                <!-- Choix 5 -->
+                <button onclick="goToChapter('chapter3')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    5. Sentir le danger, mettre fin à la conversation et **partir immédiatement** vers la première cible. (Urgence)
+                </button>
+
+                <!-- Choix 6 -->
+                <button onclick="goToChapter('chapter1_suite')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    6. Exprimer votre suspicion et **exiger une preuve tangible** de l'existence des fonds et de l'autorité d'Alaric. (Suspicion)
+                </button>
+            </div>
+        </div>
+        
+        <!-- CHAPITRE I_SUITE : LA SUSPICION CONFIRMÉE -->
+        <div id="chapter1_suite" class="chapter">
+            <h1 class="text-3xl font-bold text-center chapter-title">Chapitre I : Le Sceau de l'Académie</h1>
+            
+            <!-- Illustration spécifique (Académie de Cendre) - FLOATING LEFT (Enluminure) -->
+            <div id="illustration-chapter1_suite" class="illustration">
+                <div class="loading-text">Génération de l'Enluminure...</div>
+                <img id="chapter1_suite_img" src="" alt="" class="rounded-lg mb-4">
+            </div>
+            
+            <p class="first-paragraph">Face à votre insistance, Alaric lâche un soupir exaspéré. « Très bien. Vous êtes trop prudent pour votre propre bien. » Il tire alors de sa manche un anneau orné d'une cendre stylisée, le sceau de l'Académie de Cendre. L'anneau vibre d'une faible chaleur arcanique – la preuve que l'homme est lié à une autorité puissante et, potentiellement, dangereuse.</p>
+
+            <p>« Maintenant que votre curiosité est satisfaite, le temps file. Allez-vous prendre cette quête, ou devrai-je trouver un autre instrument ? » dit Alaric, le ton menaçant.</p>
+
+            <div class="flex flex-col gap-4 mt-8">
+                <!-- Choix 7 -->
+                <button onclick="goToChapter('chapter2')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    7. Confirmer que la preuve vous convient, et **revenir à la négociation** pour obtenir des détails vitaux sur les Dark Souls. (Prudence satisfaite)
+                </button>
                 
-                <p><span class="text-lg font-bold text-red-400">L'or. C'est tout ce qui compte.</span> Les souvenirs de votre château en ruine ne vous laissent aucun répit. Vous n'avez pas le temps de discuter de théologie avec un inconnu.</p>
+                <!-- Choix 8 -->
+                <button onclick="goToChapter('chapter3')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    8. Ignorer l'anneau, le temps est trop précieux. **Accepter la mission** et exiger le nom de la première cible. (Priorité à l'action)
+                </button>
 
-                <p>« Assez de murmures, » coupez-vous, votre voix rude résonnant dans le brouhaha. « Le prix est bon. Montrez-moi la première cible, et le reste est une affaire de logistique. Les cendres brûlent-elles ? »</p>
+                <!-- Choix 9 -->
+                <button onclick="goToChapter('chapter1_4')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    9. **Refuser le marché**. Vous ne faites pas confiance à l'Académie de Cendre et préférez enquêter seul sur ces Dark Souls. (Refus)
+                </button>
+            </div>
+        </div>
 
-                <p>L'homme voûté recula légèrement devant votre brusquerie. « Calmez-vous, chevalier. L'urgence est palpable, mais ces créatures ne sont pas des poulets sans tête. La première a été signalée à l'extérieur des remparts de la ville, près des ruines d'une ancienne tour de guet. J'ai un contact là-bas qui vous attendra à la nuit tombée. »</p>
+        <!-- CHAPITRE I_4 : LE REFUS VEXÉ -->
+        <div id="chapter1_4" class="chapter">
+            <h1 class="text-3xl font-bold text-center chapter-title">Chapitre I : Le Chemin Solitaire</h1>
+            
+            <!-- Illustration spécifique (Alaric vexé) - FLOATING LEFT (Enluminure) -->
+            <div id="illustration-chapter1_4" class="illustration">
+                <div class="loading-text">Génération de l'Enluminure...</div>
+                <img id="chapter1_4_img" src="" alt="" class="rounded-lg mb-4">
+            </div>
+            
+            <p class="first-paragraph">« Votre méfiance vous coûtera cher, mercenaire, » s'exclame Alaric, vexé, en rangeant l'anneau. Il disparaît dans la foule. Vous avez refusé l'or, mais pas la quête. Vous savez que les Dark Souls sont une menace réelle et que la première cible se trouve près des ruines de la vieille tour de guet. Vous vous préparez à partir seul, sans aucune information détaillée, comptant sur votre force et votre instinct.</p>
+
+            <div class="flex flex-col gap-4 mt-8">
+                <!-- Choix 10 -->
+                <button onclick="goToChapter('chapter4_seul')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    10. **Partir immédiatement** vers les ruines, confiant en votre capacité à gérer l'imprévu. (Témérité)
+                </button>
                 
-                <p>Il vous remet une petite bourse contenant juste assez pour des provisions. Il ne vous donne pas plus de détails, visiblement refroidi par votre manque de courtoisie et d'intérêt pour l'histoire.</p>
+                <!-- Choix 11 -->
+                <button onclick="goToChapter('chapter3_3')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    11. **Chercher des archives** locales au marché, espérant trouver des informations sur les Dark Souls sans l'aide d'Alaric. (Erudition)
+                </button>
 
-                <h2 class="text-2xl mt-8 mb-4 text-center">Nouveaux Choix</h2>
-                <div class="flex flex-col gap-4">
-                    <button onclick="goToChapter('chapter4_ruines')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
-                        5. Attendre la nuit, se préparer, et **rencontrer le contact** dans les ruines.
-                    </button>
-                    
-                    <button onclick="goToChapter('chapter4_seul')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
-                        6. Ignorer le contact, le temps c'est de l'argent. **Partir seul** vers les ruines dès maintenant.
-                    </button>
-                </div>
+                <!-- Choix 12 -->
+                <button onclick="goToChapter('chapter6_path')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    12. **Prendre le temps de vous préparer** pour un long voyage, ignorant Torvin pour l'instant et vous dirigeant directement vers le Sanctuaire d'Ashwood. (Stratégie long terme)
+                </button>
+            </div>
+        </div>
+
+        <!-- CHAPITRE II : L'ÉLOQUENCE ET LE SAVOIR (Détails) -->
+        <div id="chapter2" class="chapter">
+            <h1 class="text-3xl font-bold text-center chapter-title">Chapitre II : L'Interrogatoire Noble</h1>
+            
+            <!-- Illustration spécifique au Chapitre 2 - FLOATING LEFT (Enluminure) -->
+            <div id="illustration-chapter2" class="illustration">
+                <div class="loading-text">Génération de l'Enluminure...</div>
+                <img id="chapter2_img" src="" alt="" class="rounded-lg mb-4">
             </div>
             
-            <!-- CHAPITRE 4 (Ruines) : Rencontre Nocturne -->
-            <div id="chapter4_ruines" class="chapter">
-                <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 4 : Le Rendez-vous dans les Ombres</h1>
+            <p class="first-paragraph">Votre éloquence légendaire entre en jeu. Vous inclinez légèrement la tête, laissant le poids de votre réputation faire son œuvre. Vous parlez avec la clarté d'un érudit.</p>
 
-                <!-- Illustration spécifique au Chapitre 4 -->
-                <div class="illustration">
-                    <img src="http://googleusercontent.com/image_generation_content/23" 
-                         alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
-                </div>
+            <p>« Mon cher ami, » dites-vous d'une voix grave et mesurée, « les âmes sombres nécessitent une réponse claire. Pour que ma lame frappe là où elle doit, je dois comprendre la source de leur retour. Quelle est la nature du mal que le Feu Sacré ne peut plus retenir ? »</p>
+
+            <p>Alaric se redressa, visiblement impressionné. « Ces âmes étaient autrefois des héros ou des rois, des personnes dont les actes étaient si grands qu'elles refusaient le repos. Elles reviennent quand l'équilibre du monde est menacé. Quant au Feu Sacré, il s'éteint. Plus l'espoir faiblit chez les hommes, plus la flamme pâlit. S'il s'éteint complètement, le monde est perdu. Le Sanctuaire est au bord de l'effondrement, menacé par l'oubli. »</p>
+            
+            <p>Vous avez maintenant une meilleure compréhension de l'enjeu. Vous savez que le temps presse.</p>
+
+            <div class="flex flex-col gap-4 mt-8">
+                <!-- Choix 13 -->
+                <button onclick="goToChapter('chapter4_hypotheque')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    13. Utiliser votre **maîtrise arcanique** pour sceller le marché avec un serment magique et exiger la moitié de l'or immédiatement. (Savoir)
+                </button>
                 
-                <p>Le soleil a glissé sous l'horizon, et l'air marin a laissé place à une brise froide et humide. Vous vous êtes équipé : la longue-épée est aiguisée, et vous avez tracé sur votre cuir la rune d'Arcane de Protection. En arrivant aux ruines de la tour de guet, vous trouvez un feu discret qui crépite dans les décombres.</p>
+                <!-- Choix 14 -->
+                <button onclick="goToChapter('chapter4_depart')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    14. Sentir l'urgence, prendre l'argent disponible et **partir immédiatement** pour la Forêt de Silvanus où le premier Dark Soul est suspecté d'être. (Urgence)
+                </button>
 
-                <p>Près du feu est assis un homme aux allures de rôdeur, l'arc posé à côté de lui. Il ne porte pas d'insigne. Il lève la main pour vous signaler d'approcher sans bruit. Il a un air sévère et fatigué. « Vous êtes le chevalier mercenaire ? Moi, c'est Lyraël. Le marchand m'a envoyé pour vous donner les détails que votre... empressement n'a pas permis d'obtenir. »</p>
+                <!-- Choix 15 -->
+                <button onclick="goToChapter('chapter2_3')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    15. **Exiger un guide** ou une carte détaillée pour éviter les pièges mortels connus dans les régions oubliées. (Prudence)
+                </button>
+            </div>
+        </div>
+
+        <!-- CHAPITRE II_3 : LA CARTE ET LES PIÈGES (Prudence) -->
+        <div id="chapter2_3" class="chapter">
+            <h1 class="text-3xl font-bold text-center chapter-title">Chapitre II : La Carte des Anciens</h1>
+            
+            <!-- Illustration spécifique au Chapitre II_3 - FLOATING LEFT (Enluminure) -->
+            <div id="illustration-chapter2_3" class="illustration">
+                <div class="loading-text">Génération de l'Enluminure...</div>
+                <img id="chapter2_3_img" src="" alt="" class="rounded-lg mb-4">
+            </div>
+            
+            <p class="first-paragraph">« Un guide serait coûteux, » répond Alaric. « Mais une carte… oui. La voici, une copie annotée d'un plan d'avant l'effondrement. Elle indique les chemins les plus stables vers les ruines et, plus important encore, le meilleur accès au Sanctuaire d'Ashwood. »</p>
+
+            <p>Il déroule un parchemin d'une finesse remarquable. La carte est étonnamment précise, mais vous remarquez que la route vers le Sanctuaire est tracée d'une encre rouge menaçante, indiquant des zones de forte instabilité arcanique, appelées les « Landes Cendrées ».</p>
+
+            <div class="flex flex-col gap-4 mt-8">
+                <!-- Choix 16 -->
+                <button onclick="goToChapter('chapter4_ruines')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    16. Examiner la carte, mémoriser les zones dangereuses, puis vous diriger vers les ruines comme initialement prévu. (Méthode)
+                </button>
                 
-                <p>Lyraël pointe du doigt une colline rocheuse à l'horizon. « Le Dark Soul est là. Un ancien général nommé Torvin. Il est réputé pour sa ruse et son armure lourde. Il apparaît et disparaît, laissant derrière lui une trainée de désespoir. Il faut l'attirer dans un piège ou frapper vite. Sa faiblesse réside dans son mépris pour la magie : il s'attend à un combat d'épée loyal, pas à un duel arcanique. »</p>
+                <!-- Choix 17 -->
+                <button onclick="goToChapter('chapter2_suite')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    17. Demander à Alaric si l'Académie de Cendre pourrait vous fournir un artefact pour naviguer en toute sécurité dans ces Landes Cendrées. (Magie)
+                </button>
 
-                <h2 class="text-2xl mt-8 mb-4 text-center">Nouveaux Choix</h2>
-                <div class="flex flex-col gap-4">
-                    <button onclick="goToChapter('chapter5_magie')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
-                        7. Proposer à Lyraël de rester en retrait pour vous offrir un **support arcanique** discret.
-                    </button>
-                    
-                    <button onclick="goToChapter('chapter5_frappe')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
-                        8. Remercier Lyraël pour l'information, rejeter toute aide, et partir seul pour une **frappe rapide**.
-                    </button>
-                </div>
+                <!-- Choix 18 -->
+                <button onclick="goToChapter('chapter3')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    18. Réaliser que le temps presse et qu'il faut partir immédiatement. (Urgence)
+                </button>
             </div>
-            
-            <!-- CHAPITRE FICTIFS POUR LA DÉMO -->
-            <div id="chapter4_hypotheque" class="chapter">
-                <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 4 (Hypothèse) : La Magie du Contrat</h1>
-                <!-- Illustration spécifique (Serment Arcanique) -->
-                <div class="illustration">
-                    <img src="http://googleusercontent.com/image_generation_content/24" 
-                         alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
-                </div>
-                <p>... Ceci est la suite de l'aventure après le choix 3. Vous recevez un acompte important, mais la magie vous lie au succès de la mission. <a href="#" onclick="goToChapter('chapter1')" class="text-blue-400 underline">Retour au début</a></p>
-            </div>
-            
-            <div id="chapter4_depart" class="chapter">
-                <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 4 (Départ) : Course contre la Montre</h1>
-                <!-- Illustration spécifique (Course vers Silvanus) -->
-                <div class="illustration">
-                    <img src="http://googleusercontent.com/image_generation_content/25" 
-                         alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
-                </div>
-                <p>... Ceci est la suite de l'aventure après le choix 4. Vous partez immédiatement, évitant la foule. <a href="#" onclick="goToChapter('chapter1')" class="text-blue-400 underline">Retour au début</a></p>
-            </div>
-            
-            <div id="chapter4_seul" class="chapter">
-                <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 4 (Seul) : La Chasse Impatiente</h1>
-                <!-- Illustration spécifique (Chasse Solitaire) -->
-                <div class="illustration">
-                    <img src="http://googleusercontent.com/image_generation_content/26" 
-                         alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
-                </div>
-                <p>... Ceci est la suite de l'aventure après le choix 6. Vous vous retrouvez face à la première Dark Soul sans préparation. <a href="#" onclick="goToChapter('chapter1')" class="text-blue-400 underline">Retour au début</a></p>
-            </div>
+        </div>
 
-            <div id="chapter5_magie" class="chapter">
-                <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 5 (Magie) : L'embuscade Arcanique</h1>
-                <!-- Illustration spécifique (Embuscade Arcanique) -->
-                <div class="illustration">
-                    <img src="http://googleusercontent.com/image_generation_content/27" 
-                         alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
-                </div>
-                <p>... Ceci est la suite de l'aventure après le choix 7. <a href="#" onclick="goToChapter('chapter1')" class="text-blue-400 underline">Retour au début</a></p>
+        <!-- CHAPITRE II_SUITE : L'ŒIL DE L'ARCHIVISTE -->
+        <div id="chapter2_suite" class="chapter">
+            <h1 class="text-3xl font-bold text-center chapter-title">Chapitre II : Le Prix de la Connaissance</h1>
+            
+            <!-- Illustration spécifique (Artefact de navigation) - FLOATING LEFT (Enluminure) -->
+            <div id="illustration-chapter2_suite" class="illustration">
+                <div class="loading-text">Génération de l'Enluminure...</div>
+                <img id="chapter2_suite_img" src="" alt="" class="rounded-lg mb-4">
             </div>
             
-            <div id="chapter5_frappe" class="chapter">
-                <h1 class="text-3xl font-bold text-center chapter-title">Chapitre 5 (Frappe) : Le Duel Impétueux</h1>
-                <!-- Illustration spécifique (Duel Impétueux) -->
-                <div class="illustration">
-                    <img src="http://googleusercontent.com/image_generation_content/28" 
-                         alt="" class="rounded-lg mb-4 border-2 border-[#5a4b30]">
-                </div>
-                <p>... Ceci est la suite de l'aventure après le choix 8. <a href="#" onclick="goToChapter('chapter1')" class="text-blue-400 underline">Retour au début</a></p>
+            <p class="first-paragraph">Alaric admet que le Consulat possède l'« Œil de l'Archiviste », un globe de verre qui révèle les flux de magie. « Mais, » dit-il, l'air gourmand, « un tel artefact a un prix. Il vous faudrait accepter de me livrer les cendres du Dark Soul **directement** ici, au marché, avant de les porter au Feu Sacré. »</p>
+
+            <p>Il veut intercepter les cendres pour une analyse rapide de l'Académie, au risque de ralentir la mission principale de rétablir l'équilibre. Vous aurez le globe et l'or, mais vous devrez faire un détour dangereux après chaque victoire.</p>
+
+            <div class="flex flex-col gap-4 mt-8">
+                <!-- Choix 19 -->
+                <button onclick="goToChapter('chapter5_artefact')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    19. **Accepter le prix**. Le risque des Landes Cendrées est trop grand sans cet Œil. (Compromis)
+                </button>
+                
+                <!-- Choix 20 -->
+                <button onclick="goToChapter('chapter4_ruines')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    20. **Refuser le détour**. La mission du Feu Sacré est primordiale. Vous vous dirigez vers les ruines sans l'Œil. (Devoir)
+                </button>
+
+                <!-- Choix 21 -->
+                <button onclick="goToChapter('chapter1_4')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    21. **Refuser toute implication** supplémentaire avec Alaric et l'Académie, quitte à tout perdre. (Rupture)
+                </button>
+            </div>
+        </div>
+
+        <!-- CHAPITRE III : L'ACCEPTATION PRÉCIPITÉE (Argent) -->
+        <div id="chapter3" class="chapter">
+            <h1 class="text-3xl font-bold text-center chapter-title">Chapitre III : Le Pacte de l'Urgence</h1>
+            
+            <!-- Illustration spécifique au Chapitre 3 - FLOATING LEFT (Enluminure) -->
+            <div id="illustration-chapter3" class="illustration">
+                <div class="loading-text">Génération de l'Enluminure...</div>
+                <img id="chapter3_img" src="" alt="" class="rounded-lg mb-4">
             </div>
             
+            <p class="first-paragraph">L'or est un moyen, mais l'urgence est le moteur. Les souvenirs de votre serment brisé vous poussent. Vous n'avez pas le temps de discuter de prophéties avec un intermédiaire.</p>
+
+            <p>« Assez de mots, » coupez-vous, votre voix ferme résonnant dans le brouhaha. « Le prix est juste. Montrez-moi la première cible, et le reste est une affaire d'honneur. Où dois-je aller ? »</p>
+
+            <p>Alaric se rassit, étonné par votre détermination. « Calmez-vous, chevalier. L'urgence est palpable. La première a été signalée à l'extérieur des remparts de la ville, près des ruines d'une ancienne tour de guet. J'ai un contact là-bas, Lyraël, qui vous attendra à la nuit tombée pour vous donner les dernières informations de pistage. »</p>
+            
+            <p>Il vous remet la petite bourse contenant un acompte. Il ne vous donne pas plus de détails sur le mythe, visiblement troublé par votre empressement.</p>
+
+            <div class="flex flex-col gap-4 mt-8">
+                <!-- Choix 22 -->
+                <button onclick="goToChapter('chapter4_ruines')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    22. Attendre la nuit, se préparer, et **rencontrer le contact** dans les ruines comme convenu. (Patience)
+                </button>
+                
+                <!-- Choix 23 -->
+                <button onclick="goToChapter('chapter4_seul')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    23. Ignorer le contact. **Partir seul** vers les ruines dès maintenant pour chercher la Dark Soul par vous-même. (Témérité)
+                </button>
+
+                <!-- Choix 24 -->
+                <button onclick="goToChapter('chapter3_3')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    24. **Retourner à votre refuge** pour consulter vos anciennes notes et tenter d'identifier la Dark Soul par ses caractéristiques. (Erudition)
+                </button>
+            </div>
+        </div>
+
+        <!-- CHAPITRE III_3 : L'ÉRUDITION MILITAIRE -->
+        <div id="chapter3_3" class="chapter">
+            <h1 class="text-3xl font-bold text-center chapter-title">Chapitre III : Le Savoir Oublié</h1>
+            
+            <!-- Illustration spécifique (Notes anciennes) - FLOATING LEFT (Enluminure) -->
+            <div id="illustration-chapter3_3" class="illustration">
+                <div class="loading-text">Génération de l'Enluminure...</div>
+                <img id="chapter3_3_img" src="" alt="" class="rounded-lg mb-4">
+            </div>
+            
+            <p class="first-paragraph">Vous vous retirez dans la quiétude de votre refuge pour consulter les parchemins sauvés de votre vie passée. Vos notes confirment qu'un général du nom de Torvin, obsédé par la gloire et l'honneur de la bataille, était censé avoir péri près d'une ancienne tour de guet. Il aurait fait le serment de se relever pour défendre son honneur si le monde venait à l'oublier.</p>
+
+            <p>Vous savez maintenant que Torvin est arrogant et qu'il méprise la furtivité. Cela renforce l'idée qu'il attend un duel frontal. Fort de cette connaissance, vous vous dirigez vers les ruines à la tombée de la nuit, avec une confiance renouvelée.</p>
+
+            <div class="flex flex-col gap-4 mt-8">
+                <!-- Choix 25 -->
+                <button onclick="goToChapter('chapter4_ruines')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    25. **Aller au rendez-vous** avec Lyraël. L'information combinée à la sienne sera vitale. (Prudence informée)
+                </button>
+                
+                <!-- Choix 26 -->
+                <button onclick="goToChapter('chapter4_seul')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    26. **Couper court à l'attente**. Vous avez assez d'informations pour vaincre Torvin sans aide. (Arrogance)
+                </button>
+
+                <!-- Choix 27 -->
+                <button onclick="goToChapter('chapter6_path')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    27. **Passer la nuit** à peaufiner un sort arcanique qui exploite directement la faiblesse de l'ennemi connue par vos notes, puis partir au matin. (Préparation Magique)
+                </button>
+            </div>
+        </div>
+
+        <!-- CHAPITRE IV (DÉBUT DE LA QUÊTE) : LE PACTE MAGIQUE -->
+        <div id="chapter4_hypotheque" class="chapter">
+            <h1 class="text-3xl font-bold text-center chapter-title">Chapitre IV : L'Hypothèque de l'Âme</h1>
+            
+            <!-- Illustration spécifique (Serment Arcanique) - FLOATING LEFT (Enluminure) -->
+            <div id="illustration-chapter4_hypotheque" class="illustration">
+                <div class="loading-text">Génération de l'Enluminure...</div>
+                <img src="" 
+                     alt="" class="rounded-lg mb-4" id="chapter4_hypotheque_img">
+            </div>
+            <p class="first-paragraph">Votre maîtrise arcanique est impressionnante. Vous tracez une rune au sol qui se met à luire doucement. « Voici un Serment d'Honneur Scellé par l'Arcane. Si je manque à mon devoir, votre magie le saura. Si vous manquez au vôtre, mon prix sera quintuplé. »</p>
+
+            <p>Alaric, pâle, accepte et vous verse la moitié de l'or. La rune scelle le pacte. Ce serment vous force à une réussite totale. Vous partez immédiatement vers les ruines pour la première étape, sans carte, mais avec un engagement magique qui pèse lourdement sur votre conscience.</p>
+
+            <div class="flex flex-col gap-4 mt-8">
+                <!-- Choix 28 -->
+                <button onclick="goToChapter('chapter4_ruines')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    28. **Attendre Lyraël** aux ruines comme prévu par Alaric pour obtenir de l'aide et des détails. (Prudence)
+                </button>
+                
+                <!-- Choix 29 -->
+                <button onclick="goToChapter('chapter4_seul')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    29. **Rompre avec la prudence**. Vous êtes sous serment, l'échec n'est pas permis. Vous foncez seul. (Détermination)
+                </button>
+
+                <!-- Choix 30 -->
+                <button onclick="goToChapter('chapter6_path')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    30. **Utiliser le pacte** pour exiger d'Alaric qu'il vous fournisse immédiatement la carte des Landes Cendrées. (Exploitation du serment)
+                </button>
+            </div>
+        </div>
+
+        <!-- CHAPITRE IV (DÉBUT DE LA QUÊTE) : LA COURSE CONTRE LA MONTRE -->
+        <div id="chapter4_depart" class="chapter">
+            <h1 class="text-3xl font-bold text-center chapter-title">Chapitre IV : Course contre l'Oubli</h1>
+            
+            <!-- Illustration spécifique (Course vers Silvanus) - FLOATING LEFT (Enluminure) -->
+            <div id="illustration-chapter4_depart" class="illustration">
+                <div class="loading-text">Génération de l'Enluminure...</div>
+                <img src="" 
+                     alt="" class="rounded-lg mb-4" id="chapter4_depart_img">
+            </div>
+            <p class="first-paragraph">Le temps presse. Vous ne pouvez pas perdre une seconde en négociations ou en préparations. Vous prenez l'or, coupez court à la conversation et vous précipitez hors du marché, direction la tour de guet ruinée, espérant que l'obscurité ne vous surprendra pas avant d'atteindre la cible. Vous arrivez avant Lyraël.</p>
+
+            <div class="flex flex-col gap-4 mt-8">
+                <!-- Choix 31 -->
+                <button onclick="goToChapter('chapter6_combat_seul')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    31. **Attendre à couvert** l'arrivée de la Dark Soul, espérant surprendre l'ennemi. (Furtivité)
+                </button>
+                
+                <!-- Choix 32 -->
+                <button onclick="goToChapter('chapter4_ruines')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    32. **Patienter l'arrivée de Lyraël** pour obtenir un maximum d'informations avant l'affrontement. (Prudence)
+                </button>
+
+                <!-- Choix 33 -->
+                <button onclick="goToChapter('chapter4_seul')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    33. **Chercher le combat immédiatement**. L'urgence est trop forte. (Impatience)
+                </button>
+            </div>
+        </div>
+
+        <!-- CHAPITRE IV (Ruines) : Rencontre Nocturne -->
+        <div id="chapter4_ruines" class="chapter">
+            <h1 class="text-3xl font-bold text-center chapter-title">Chapitre IV : Le Rendez-vous dans l'Ancienne Citadelle</h1>
+
+            <!-- Illustration spécifique au Chapitre 4 - FLOATING LEFT (Enluminure) -->
+            <div id="illustration-chapter4_ruines" class="illustration">
+                <div class="loading-text">Génération de l'Enluminure...</div>
+                <img id="chapter4_ruines_img" src="" alt="" class="rounded-lg mb-4">
+            </div>
+            
+            <p class="first-paragraph">Le soleil a disparu, laissant place à une nuit claire et fraîche. Vous vous êtes équipé. Une lueur douce, propre à une lanterne magique, brille parmi les vestiges de la tour. </p>
+
+            <p>Près de la lanterne est assise Lyraël. Elle vous salue d'un geste de la main. « Torvin. Ancien général, armure lourde, il réapparaît et disparaît, laissant une traînée de désespoir. Il faut l'attirer dans un piège ou frapper vite. Sa faiblesse : il méprise la magie et s'attend à un combat d'épée loyal. »</p>
+
+            <div class="flex flex-col gap-4 mt-8">
+                <!-- Choix 34 -->
+                <button onclick="goToChapter('chapter5_magie_prep')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    34. Proposer à Lyraël de rester en retrait pour vous offrir un **support arcanique** discret, ou pour lui demander de tendre un piège physique. (Stratégie)
+                </button>
+                
+                <!-- Choix 35 -->
+                <button onclick="goToChapter('chapter5_frappe_prep')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    35. Insister pour y aller seul, et planifier une **infiltration discrète** des positions connues de Torvin pour une embuscade. (Furtivité)
+                </button>
+
+                <!-- Choix 36 -->
+                <button onclick="goToChapter('chapter4_3')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    36. Demander à Lyraël comment Torvin est apparu et si elle a senti une **perturbation arcanique** majeure. (Mysticisme)
+                </button>
+            </div>
+        </div>
+
+        <!-- CHAPITRE IV_3 : LE MYSTICISME DE LA RENAISSANCE -->
+        <div id="chapter4_3" class="chapter">
+            <h1 class="text-3xl font-bold text-center chapter-title">Chapitre IV : Le Souffle d'Agonie</h1>
+            
+            <!-- Illustration spécifique (Perturbation arcanique) - FLOATING LEFT (Enluminure) -->
+            <div id="illustration-chapter4_3" class="illustration">
+                <div class="loading-text">Génération de l'Enluminure...</div>
+                <img id="chapter4_3_img" src="" alt="" class="rounded-lg mb-4">
+            </div>
+            
+            <p class="first-paragraph">Lyraël frissonne. « C'était comme si l'air lui-même mourait. Une onde de désespoir glacée a submergé la zone. Je n'ai jamais vu une telle instabilité. Il ne s'agit pas d'un simple fantôme, Kaelen. C'est l'âme d'un roi revenue pour vider notre monde de sa flamme vitale. Son armure est lourde, mais elle pourrait aussi être le seul moyen de contenir sa noirceur. »</p>
+
+            <p>Cette information vous donne un avantage arcanique. Vous savez que frapper l'âme elle-même, et non seulement la coque, est la clé. Il faut le faire douter de lui-même.</p>
+
+            <div class="flex flex-col gap-4 mt-8">
+                <!-- Choix 37 -->
+                <button onclick="goToChapter('chapter5_magie_prep')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    37. Utiliser cette connaissance pour peaufiner une **stratégie magique** avec Lyraël pour frapper l'âme. (Sagesse)
+                </button>
+                
+                <!-- Choix 38 -->
+                <button onclick="goToChapter('chapter5_frappe_prep')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    38. Déduire la position la plus vulnérable de Torvin et préparer une **attaque furtive** et chirurgicale. (Analyse)
+                </button>
+
+                <!-- Choix 39 -->
+                <button onclick="goToChapter('chapter6_path')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    39. **Abandonner la chasse à Torvin**. Le danger est trop grand et l'équilibre du monde plus important. Vous partez directement vers Ashwood. (Hésitation)
+                </button>
+            </div>
+        </div>
+
+        <!-- CHAPITRE IV (SEUL) : LA CONFRONTATION IMPRÉPARÉE -->
+        <div id="chapter4_seul" class="chapter">
+            <h1 class="text-3xl font-bold text-center chapter-title">Chapitre IV : Le Général Fantôme</h1>
+            
+            <!-- Illustration spécifique (Chasse Solitaire) - FLOATING LEFT (Enluminure) -->
+            <div id="illustration-chapter4_seul" class="illustration">
+                <div class="loading-text">Génération de l'Enluminure...</div>
+                <img src="" 
+                     alt="" class="rounded-lg mb-4" id="chapter4_seul_img">
+            </div>
+            <p class="first-paragraph">Vous arrivez aux ruines, pressé par le temps, et vous trouvez Torvin immédiatement. Il n'attendait personne. C'est un colosse en armure noire, l'épée tirée, qui dégage une aura de désespoir. Il lève son épée et vous défie d'une voix qui semble venir d'une tombe. Il est clair qu'il s'attend à un duel noble.</p>
+
+            <div class="flex flex-col gap-4 mt-8">
+                <!-- Choix 40 -->
+                <button onclick="goToChapter('chapter6_combat_seul')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    40. **Accepter le duel frontal** pour gagner du temps et respecter le code. (Honneur)
+                </button>
+                
+                <!-- Choix 41 -->
+                <button onclick="goToChapter('chapter6_combat_magie')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    41. **Lancer immédiatement un sort arcanique** pour le déstabiliser, ignorant les règles de l'honneur. (Magie)
+                </button>
+
+                <!-- Choix 42 -->
+                <button onclick="goToChapter('chapter6_path_retreat')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    42. **Battre en retraite**. Vous êtes en sous-effectif et sans information vitale. (Pragmatisme)
+                </button>
+            </div>
+        </div>
+        
+        <!-- CHAPITRE V (PRÉPARATION MAGIE) : L'EMBUSCADE ARCANE -->
+        <div id="chapter5_magie_prep" class="chapter">
+            <h1 class="text-3xl font-bold text-center chapter-title">Chapitre V : Le Sortilège du Doute</h1>
+            
+            <!-- Illustration spécifique (Embuscade Arcanique) - FLOATING LEFT (Enluminure) -->
+            <div id="illustration-chapter5_magie_prep" class="illustration">
+                <div class="loading-text">Génération de l'Enluminure...</div>
+                <img src="" 
+                     alt="" class="rounded-lg mb-4" id="chapter5_magie_prep_img">
+            </div>
+            <p class="first-paragraph">Vous informez Lyraël de la faiblesse de Torvin face à la magie. Ensemble, vous élaborez un plan : elle utilisera son arc pour le distraire, tandis que vous tracerez une rune d'illusion complexe derrière les ruines, visant à lui faire revivre l'instant de sa défaite passée. Cela devrait affaiblir son âme, lui faisant douter de son honneur. Le combat sera arcanique et psychologique.</p>
+
+            <div class="flex flex-col gap-4 mt-8">
+                <!-- Choix 43 -->
+                <button onclick="goToChapter('chapter6_combat_magie')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    43. **Mettre le plan à exécution**. Lyraël attire Torvin, vous commencez l'incantation. (Exécution)
+                </button>
+                
+                <!-- Choix 44 -->
+                <button onclick="goToChapter('chapter6_combat_frappe')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    44. **Changer de tactique**. L'illusion est trop risquée. Vous préféreriez qu'elle vous couvre pendant que vous tentez une frappe furtive. (Revirement)
+                </button>
+
+                <!-- Choix 45 -->
+                <button onclick="goToChapter('chapter6_path')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    45. **Utiliser cette nuit de préparation** pour gagner du temps et partir vers Ashwood, laissant Torvin derrière vous. (Fuir le combat)
+                </button>
+            </div>
+        </div>
+        
+        <!-- CHAPITRE V (PRÉPARATION FRAPPE) : L'APPROCHE SILENCIEUSE -->
+        <div id="chapter5_frappe_prep" class="chapter">
+            <h1 class="text-3xl font-bold text-center chapter-title">Chapitre V : Le Silence de la Lame</h1>
+            
+            <!-- Illustration spécifique (Infiltration) - FLOATING LEFT (Enluminure) -->
+            <div id="illustration-chapter5_frappe_prep" class="illustration">
+                <div class="loading-text">Génération de l'Enluminure...</div>
+                <img src="" 
+                     alt="" class="rounded-lg mb-4" id="chapter5_frappe_prep_img">
+            </div>
+            <p class="first-paragraph">Vous refusez l'aide de Lyraël, insistant sur une frappe solitaire pour éviter tout imprévu. Vous planifiez une approche par les toits écroulés de la citadelle. L'idée est d'utiliser le mépris de Torvin pour la furtivité à votre avantage, en le frappant avec une charge mortelle à la gorge ou dans le dos.</p>
+
+            <p>Lyraël est inquiète, mais accepte de vous attendre pour la récupération des cendres. Vous vous déplacez maintenant comme une ombre, vous glissant dans les vestiges silencieux.</p>
+
+            <div class="flex flex-col gap-4 mt-8">
+                <!-- Choix 46 -->
+                <button onclick="goToChapter('chapter6_combat_frappe')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    46. **Tenter l'approche furtive** et la frappe chirurgicale. (Furtivité)
+                </button>
+                
+                <!-- Choix 47 -->
+                <button onclick="goToChapter('chapter6_combat_magie')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    47. **Changer d'avis**. Vous renoncez à la furtivité et décidez d'utiliser un puissant sort de feu pour forcer un duel. (Magie)
+                </button>
+
+                <!-- Choix 48 -->
+                <button onclick="goToChapter('chapter6_path')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    48. **Rejoindre Lyraël** et l'abandonner, jugeant que le temps presse et que vous devez partir vers Ashwood sans tuer Torvin. (Lâcheté)
+                </button>
+            </div>
+        </div>
+
+        <!-- CHAPITRE V (ARTEFACT) : LA QUÊTE ARCANIQUE -->
+        <div id="chapter5_artefact" class="chapter">
+            <h1 class="text-3xl font-bold text-center chapter-title">Chapitre V : Le Regard de Cristal</h1>
+            
+            <!-- Illustration spécifique (Globe Archviste) - FLOATING LEFT (Enluminure) -->
+            <div id="illustration-chapter5_artefact" class="illustration">
+                <div class="loading-text">Génération de l'Enluminure...</div>
+                <img src="" 
+                     alt="" class="rounded-lg mb-4" id="chapter5_artefact_img">
+            </div>
+            <p class="first-paragraph">Vous acceptez de faire le détour par le marché après chaque victoire. En échange, Alaric vous remet l'« Œil de l'Archiviste », un globe de verre taillé qui luit d'une lumière douce. Il vous permet de voir les flux d'énergie arcanique. Vous n'avez pas besoin de guide ni d'attendre Lyraël, vous avez déjà la carte et l'outil pour la lire.</p>
+
+            <p>Vous vous dirigez vers les ruines, confiant. Vous voyez les traces de magie noire laissées par Torvin comme de l'encre sur de la neige.</p>
+
+            <div class="flex flex-col gap-4 mt-8">
+                <!-- Choix 49 -->
+                <button onclick="goToChapter('chapter6_combat_artefact')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    49. **Utiliser l'Œil** pour frapper là où la magie de Torvin est la plus faible, sans attendre Lyraël. (Précision)
+                </button>
+                
+                <!-- Choix 50 -->
+                <button onclick="goToChapter('chapter6_combat_seul')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    50. **Ignorer l'Œil**. Affronter Torvin dans un duel loyal d'épée, prouvant que la technique surpasse la magie. (Honneur)
+                </button>
+
+                <!-- Choix 51 -->
+                <button onclick="goToChapter('chapter6_path')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    51. **Passer votre chemin**. Le risque est trop grand, même avec l'Œil. (Pragmatisme)
+                </button>
+            </div>
+        </div>
+
+        <!-- CHAPITRE VI : COMBAT SOLO SANS PRÉPARATION -->
+        <div id="chapter6_combat_seul" class="chapter">
+            <h1 class="text-3xl font-bold text-center chapter-title">Chapitre VI : L'Affrontement Téméraire</h1>
+            
+            <!-- Illustration spécifique (Duel Impétueux) - FLOATING LEFT (Enluminure) -->
+            <div id="illustration-chapter6_combat_seul" class="illustration">
+                <div class="loading-text">Génération de l'Enluminure...</div>
+                <img src="" 
+                     alt="" class="rounded-lg mb-4" id="chapter6_combat_seul_img">
+            </div>
+            <p class="first-paragraph">Vous vous lancez dans la mêlée. Torvin, impressionné par votre audace, répond coup pour coup. Son armure est impénétrable et son épée dégage un froid mordant. Sans l'information cruciale de Lyraël, vous gaspillez votre énergie sur son armure plutôt que sur son âme. Il vous repousse, vous laissant une blessure douloureuse.</p>
+
+            <p>Torvin lève son épée pour le coup de grâce. Lyraël n'est pas là pour vous sauver. Vous avez une fraction de seconde pour agir.</p>
+
+            <div class="flex flex-col gap-4 mt-8">
+                <!-- Choix 52 -->
+                <button onclick="goToChapter('chapter6_path_retreat')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    52. **Rouler sur le côté** et fuir au plus vite vers Ashwood. (Fuite)
+                </button>
+                
+                <!-- Choix 53 -->
+                <button onclick="goToChapter('chapter6_combat_magie_fail')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    53. **Lancer un sort de diversion** de votre dernière énergie et fuir. (Dernier recours)
+                </button>
+
+                <!-- Choix 54 -->
+                <button onclick="goToChapter('chapter6_path')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    54. **Tenter une dernière parade** pour gagner du temps, en espérant une diversion divine. (Miracle)
+                </button>
+            </div>
+        </div>
+
+        <!-- CHAPITRE VI : LE DUEL ARCANIQUE (Succès/Échec) -->
+        <div id="chapter6_combat_magie" class="chapter">
+            <h1 class="text-3xl font-bold text-center chapter-title">Chapitre VI : L'Âme Brisée</h1>
+            
+            <!-- Illustration spécifique (Victoire Magique) - FLOATING LEFT (Enluminure) -->
+            <div id="illustration-chapter6_combat_magie" class="illustration">
+                <div class="loading-text">Génération de l'Enluminure...</div>
+                <img src="" 
+                     alt="" class="rounded-lg mb-4" id="chapter6_combat_magie_img">
+            </div>
+            <p class="first-paragraph">Lyraël l'attire, et vous achevez votre incantation. Torvin est submergé par une illusion d'échec. Il vacille, son aura de désespoir faiblit, son armure se fissure sous la décharge psychique. Lyraël saisit l'opportunité pour tirer une flèche arcanique dans la brèche créée. La coque de l'armure s'effondre, laissant échapper une petite quantité de cendres grises et froides. Vous avez vaincu le premier Dark Soul grâce à la stratégie et l'arcane.</p>
+
+            <p>Lyraël est impressionnée. « Ces cendres doivent aller au Feu Sacré, Kaelen. Mais la route est dangereuse. »</p>
+
+            <div class="flex flex-col gap-4 mt-8">
+                <!-- Choix 55 -->
+                <button onclick="goToChapter('chapter6_path_lyrael')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    55. **Demander à Lyraël de vous accompagner** jusqu'à Ashwood. (Alliance)
+                </button>
+                
+                <!-- Choix 56 -->
+                <button onclick="goToChapter('chapter6_path_solo')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    56. **Partir seul**. Vous préférez voyager à votre rythme. (Solitude)
+                </button>
+
+                <!-- Choix 57 -->
+                <button onclick="goToChapter('chapter6_detour_alaric')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    57. (SI L'ŒIL EST ACQUIS) **Faire le détour** promis au marché pour livrer les cendres à Alaric. (Honneur du pacte)
+                </button>
+            </div>
+        </div>
+
+        <!-- CHAPITRE VI : L'INFILTRATION CHIRURGICALE (Succès/Échec) -->
+        <div id="chapter6_combat_frappe" class="chapter">
+            <h1 class="text-3xl font-bold text-center chapter-title">Chapitre VI : Le Jugement Silencieux</h1>
+            
+            <!-- Illustration spécifique (Frappe Furtive) - FLOATING LEFT (Enluminure) -->
+            <div id="illustration-chapter6_combat_frappe" class="illustration">
+                <div class="loading-text">Génération de l'Enluminure...</div>
+                <img src="" 
+                     alt="" class="rounded-lg mb-4" id="chapter6_combat_frappe_img">
+            </div>
+            <p class="first-paragraph">Vous vous déplacez sans un bruit. Torvin, droit dans son armure, est trop fier pour surveiller les ombres. Vous plongez de la ruine, visant la jointure de son coude, là où son bras s'étend pour parer un duel imaginaire. L'épée passe à travers. Le métal tombe au sol, et le fantôme de Torvin s'évapore en un nuage de cendres. Le silence retombe.</p>
+
+            <p>Lyraël émerge de l'ombre, impressionnée par la rapidité de votre frappe. « C'était... inattendu. Ces cendres doivent aller au Feu Sacré, Kaelen. »</p>
+
+            <div class="flex flex-col gap-4 mt-8">
+                <!-- Choix 58 -->
+                <button onclick="goToChapter('chapter6_path_lyrael')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    58. **Accepter la présence de Lyraël** comme alliée pour la suite du voyage. (Alliance)
+                </button>
+                
+                <!-- Choix 59 -->
+                <button onclick="goToChapter('chapter6_path_solo')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    59. **Refuser toute aide**. Vous préférez continuer seul. (Solitude)
+                </button>
+
+                <!-- Choix 60 -->
+                <button onclick="goToChapter('chapter6_detour_alaric')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    60. (SI L'ŒIL EST ACQUIS) **Faire le détour** promis au marché pour livrer les cendres à Alaric. (Honneur du pacte)
+                </button>
+            </div>
+        </div>
+        
+        <!-- CHAPITRE VI : LE DÉTOUR VERS ALARIC -->
+        <div id="chapter6_detour_alaric" class="chapter">
+            <h1 class="text-3xl font-bold text-center chapter-title">Chapitre VI : La Trahison Subtile</h1>
+            
+            <!-- Illustration spécifique (Torvin's Cinders) - FLOATING LEFT (Enluminure) -->
+            <div id="illustration-chapter6_detour_alaric" class="illustration">
+                <div class="loading-text">Génération de l'Enluminure...</div>
+                <img src="" 
+                     alt="" class="rounded-lg mb-4" id="chapter6_detour_alaric_img">
+            </div>
+            <p class="first-paragraph">Vous faites le détour vers le marché. Alaric est ravi. Il prend les cendres, les enferme dans une jarre arcanique, et vous donne le reste de l'or. Mais alors qu'il manipule la jarre, l'Œil de l'Archiviste dans votre poche se met à vibrer violemment. La jarre n'est pas un récipient, mais un extracteur. Alaric ne veut pas les étudier ; il veut extraire l'essence de l'âme de Torvin. Vous avez compromis l'intégrité de l'âme avant qu'elle n'atteigne le Feu Sacré.</p>
+
+            <div class="flex flex-col gap-4 mt-8">
+                <!-- Choix 61 -->
+                <button onclick="goToChapter('chapter7_combat_alaric')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    61. **Frapper Alaric** immédiatement et reprendre les cendres (Combat). (Colère)
+                </button>
+                
+                <!-- Choix 62 -->
+                <button onclick="goToChapter('chapter7_shadow_alaric')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    62. **Quitter le marché en silence**, gardant l'Œil et le reste de l'argent. Le mal est fait, mais vous gardez le contrôle de votre quête principale. (Pragmatisme)
+                </button>
+
+                <!-- Choix 63 -->
+                <button onclick="goToChapter('chapter7_diplomacy_alaric')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    63. **Tenter une négociation**. Exiger une explication avant de rendre l'Œil et les futurs cendres. (Diplomatie)
+                </button>
+            </div>
+        </div>
+
+        <!-- CHAPITRE VI : RETRAITE ET CONSÉQUENCE -->
+        <div id="chapter6_path_retreat" class="chapter">
+            <h1 class="text-3xl font-bold text-center chapter-title">Chapitre VI : La Blessure de l'Honneur</h1>
+            
+            <!-- Illustration spécifique (Retraite) - FLOATING LEFT (Enluminure) -->
+            <div id="illustration-chapter6_path_retreat" class="illustration">
+                <div class="loading-text">Génération de l'Enluminure...</div>
+                <img src="" 
+                     alt="" class="rounded-lg mb-4" id="chapter6_path_retreat_img">
+            </div>
+            <p class="first-paragraph">Vous avez fui. Torvin est toujours là, mais il faudra du temps pour se remettre de la blessure que vous portez. Vous avez échoué dans la première tâche, et le Feu Sacré faiblit encore. Lyraël est déçue et refuse de vous aider davantage. Vous devez maintenant partir immédiatement, sans plus de ressources.</p>
+
+            <div class="flex flex-col gap-4 mt-8">
+                <!-- Choix 64 -->
+                <button onclick="goToChapter('chapter7_village_injured')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    64. **Prendre le chemin le plus sûr** vers Ashwood, en passant par le Village d'Argile pour se soigner. (Soin)
+                </button>
+                
+                <!-- Choix 65 -->
+                <button onclick="goToChapter('chapter7_forest_path')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    65. **Prendre un raccourci dangereux** à travers les Landes Cendrées pour compenser le temps perdu. (Danger)
+                </button>
+
+                <!-- Choix 66 -->
+                <button onclick="goToChapter('chapter7_ruins_search')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    66. **Tenter de retrouver Alaric** au marché pour exiger plus d'informations pour réussir. (Reprendre contact)
+                </button>
+            </div>
+        </div>
+
+        <!-- CHAPITRE VII : LE HUB PRINCIPAL VERS ASHWOOD -->
+        <div id="chapter6_path" class="chapter">
+            <h1 class="text-3xl font-bold text-center chapter-title">Chapitre VII : La Route d'Ashwood</h1>
+            
+            <!-- Illustration spécifique (Chemin vers Sanctuaire) - FLOATING LEFT (Enluminure) -->
+            <div id="illustration-chapter6_path" class="illustration">
+                <div class="loading-text">Génération de l'Enluminure...</div>
+                <img src="" 
+                     alt="" class="rounded-lg mb-4" id="chapter6_path_img">
+            </div>
+            <p class="first-paragraph">Que vous ayez vaincu Torvin, fui, ou choisi le chemin long, vous êtes désormais sur la route du Sanctuaire d'Ashwood. Devant vous s'étendent les Landes Cendrées, une zone marquée par une instabilité arcanique. Votre objectif est de traverser cette zone et d'atteindre le Feu Sacré avant qu'il ne s'éteigne. Vous arrivez à un carrefour.</p>
+
+            <div class="flex flex-col gap-4 mt-8">
+                <!-- Choix 67 -->
+                <button onclick="goToChapter('chapter7_village')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    67. **Visiter le Village d'Argile**, une petite communauté isolée près de la frontière, pour obtenir des provisions et des informations. (Diplomatie)
+                </button>
+                
+                <!-- Choix 68 -->
+                <button onclick="goToChapter('chapter7_ruins_search')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    68. **Chercher des ruines** au nord, espérant y trouver un artefact ou un raccourci oublié qui évite les Landes Cendrées. (Investigation)
+                </button>
+
+                <!-- Choix 69 -->
+                <button onclick="goToChapter('chapter7_forest_path')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    69. **Prendre le chemin direct**, mais extrêmement dangereux, à travers les Landes Cendrées. (Courage/Magie)
+                </button>
+            </div>
+        </div>
+
+        <!-- CHAPITRE VII : SUITE DES CHOIX -->
+        
+        <!-- CHAPITRE VII_VILLAGE : LE CHOIX MORAL -->
+        <div id="chapter7_village" class="chapter">
+            <h1 class="text-3xl font-bold text-center chapter-title">Chapitre VII : Le Village sous l'Ombre</h1>
+            
+            <!-- Illustration spécifique (Village d'Argile) - FLOATING LEFT (Enluminure) -->
+            <div id="illustration-chapter7_village" class="illustration">
+                <div class="loading-text">Génération de l'Enluminure...</div>
+                <img src="" 
+                     alt="" class="rounded-lg mb-4" id="chapter7_village_img">
+            </div>
+            <p class="first-paragraph">Le Village d'Argile est pauvre et silencieux. Le chef du village vous accueille, les yeux pleins d'angoisse. Il vous révèle que leur seule source d'eau potable, un puits sacré, a été empoisonnée par une étrange cendre. Sans aide, ils mourront tous. Vous pouvez les aider, mais cela vous coûtera au moins une demi-journée de temps, un luxe que vous n'avez pas.</p>
+
+            <div class="flex flex-col gap-4 mt-8">
+                <!-- Choix 70 -->
+                <button onclick="goToChapter('chapter8_help_village')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    70. **Passer une demi-journée à purifier le puits** avec vos connaissances arcaniques. (Compassion)
+                </button>
+                
+                <!-- Choix 71 -->
+                <button onclick="goToChapter('chapter8_ignore_village')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    71. **Laisser quelques pièces d'or** et continuer votre route. Le monde est plus important. (Pragmatisme Froid)
+                </button>
+
+                <!-- Choix 72 -->
+                <button onclick="goToChapter('chapter8_extort_village')" class="choice-button p-4 rounded-lg shadow-md hover:bg-opacity-80">
+                    72. **Exiger une information vitale** ou un artefact rare en échange de votre aide rapide. (Ambition)
+                </button>
+            </div>
+        </div>
+        
+        <!-- CHAPITRE VIII : CLIFFHANGER DE FIN -->
+        <div id="chapter8_end_of_part1" class="chapter">
+            <h1 class="text-3xl font-bold text-center chapter-title">Chapitre VIII : La Menace Grandissante</h1>
+            <!-- Illustration spécifique (Sanctuaire au loin) - FLOATING LEFT (Enluminure) -->
+            <div id="illustration-chapter8_end_of_part1" class="illustration">
+                <div class="loading-text">Génération de l'Enluminure...</div>
+                <img src="" 
+                     alt="" class="rounded-lg mb-4" id="chapter8_end_of_part1_img">
+            </div>
+            <p class="first-paragraph">... [Suite du scénario après vos choix : purification réussie, artefact acquis, ou abandon du village]. Votre chemin se poursuit. Vous apercevez au loin la silhouette sombre et majestueuse du Sanctuaire d'Ashwood, enveloppé d'une brume qui n'est pas naturelle. L'odeur de soufre et de cendre monte jusqu'à vous. Il est presque trop tard. **Fin de la première partie de l'Aventure de Kaelen.**</p>
+            <p class="text-center font-bold mt-8">Votre quête doit se poursuivre. Merci d'indiquer votre prochaine action !</p>
         </div>
         
     </div>
 
     <script>
-        // Configuration des ambiances TTS
+        // Mapping des IDs d'image aux Prompts de génération
+        const IMAGE_PROMPTS = {
+            // CHAPITRES EXISTANTS (V3 - Richesse et Ambiance)
+            'chapter1_img': "Medieval manuscript illumination style, absolutely no text or lettering. Wide shot view of a bright, vibrant high fantasy market square at noon. Focus on the grand architecture of Port-Éclat: towering golden banners, shining marble fountains, and the orderly, clean streets, conveying a sense of majesty. Iconographic style, with golden borders and bright, rich colors on parchment.",
+            'chapter1_3_img': "Medieval manuscript illumination style, absolutely no text or lettering. A wide, low-angle shot emphasizing the impressive, foreboding façade of the Academy of Cinders: tall, dark stone towers with gold-leaf inscriptions and heavy, intricate archways. Iconographic style, dominated by deep greys, gold, and faint arcane glow on parchment.",
+            'chapter2_img': "Medieval manuscript illumination style, absolutely no text or lettering. An expansive, brightly lit library or scriptorium within a noble citadel. The focal point is a single, large illuminated manuscript page on a pedestal. Focus on the geometry and the solemn, noble atmosphere. Iconographic style, parchment texture, bright colors.",
+            'chapter2_3_img': "Medieval manuscript illumination style, absolutely no text or lettering. Focus on an intricate, stylized antique map of a high fantasy realm, spread across a polished, heavy wood table. The map features detailed terrain with one main route traced in a dark, ominous red ink to denote danger (Landes Cendrées). Iconographic style, earthy browns, vibrant greens and ominous red on parchment.",
+            'chapter3_img': "Medieval manuscript illumination style, absolutely no text or lettering. A wide, atmospheric shot of the opulent, gold-adorned walls and massive, shining gates of the city, emphasizing their strength. A small, stylized pouch of gold lies prominently on a polished stone parapet. Iconographic style, bright, rich ink colors on parchment.",
+            'chapter4_ruines_img': "Medieval manuscript illumination style, absolutely no text or lettering. Wide-angle night shot focusing on the majestic, ancient stone remnants of a noble citadel tower under a luminous full moon. A single magical lantern glows softly among the stones, its light emphasizing the architecture. Iconographic style, clear shadows, stylized magical light glow on parchment.",
+            
+            // NOUVEAUX CHAPITRES (V4 - Développement de l'histoire)
+            'chapter1_suite_img': "Medieval manuscript illumination style, absolutely no text or lettering. Close-up on a gold ring with the symbol of stylized ashes, placed on a dark velvet cushion. The ring emits a faint, threatening red glow, symbolizing the binding nature of the Academy's seal. Focus on the ominous jewelry. Iconographic style.",
+            'chapter1_4_img': "Medieval manuscript illumination style, absolutely no text or lettering. Dynamic street scene in a bustling, crowded medieval market, but focusing on the back of a small, elegantly dressed figure (Alaric) quickly disappearing into the crowd, leaving a single, imposing knight (Kaelen) alone and thoughtful in the foreground. Iconographic style, sharp contrasts.",
+            'chapter2_suite_img': "Medieval manuscript illumination style, absolutely no text or lettering. A detailed, intricate glass globe ('Eye of the Archivist') placed on a stand, internally illuminating a stylized, glowing map of arcane energy flows (blue and purple lines) across a landscape. The focus is on the object and its magical function. Iconographic style, blue/purple arcane light.",
+            'chapter3_3_img': "Medieval manuscript illumination style, absolutely no text or lettering. Close-up view of a collection of ancient, brittle scrolls and leather-bound journals piled haphazardly on a simple wooden desk. The focus is on the intricate, stylized handwriting and cryptic diagrams visible on the top scroll (showing a helmeted general), suggesting deep, forgotten knowledge being consulted in haste. Iconographic style, muted browns and yellows on aged parchment.",
+            'chapter4_hypotheque_img': "Medieval manuscript illumination of a massive, heavy wooden table bearing an official, glowing document surrounded by various noble seals and ceremonial objects. A burst of pure, golden arcane energy radiates from the document, sealing the contract. Focus is on the power of the magic. Iconographic style, gold and azure colors.",
+            'chapter4_depart_img': "Medieval manuscript illumination of a single, powerful horse and rider (Kaelen) galloping urgently through a dark, high-fantasy forest at dusk. The rider's silhouette is sharp against the fading light, emphasizing speed and isolation. Iconographic style, deep greens, purples, and blues.",
+            'chapter4_3_img': "Medieval manuscript illumination style, absolutely no text or lettering. A highly stylized depiction of an ancient valley landscape being suddenly, violently disturbed by an unnatural wave of cold, black energy spreading across the ground. Focus on the unsettling contrast between the high fantasy nature and the dark, spreading corruption. Iconographic style, blue and dark grey against natural greens.",
+            'chapter4_seul_img': "Medieval manuscript illumination of a massive, dark, armored figure (Dark Soul Torvin) standing alone on a rocky outcrop against a turbulent, clear night sky. The figure is imposing and solitary, embodying arrogance and power. Iconographic style, strong contrasts between black armor and moonlight.",
+            'chapter5_magie_prep_img': "Medieval manuscript illumination of a detailed arcane circle drawn on rocky ground, glowing softly with blue light. A figure (Kaelen) kneels, concentrating, while another figure (Lyraël) stands in the background with a drawn bow. Focus on the magical preparation and alliance. Iconographic style, blue arcane light.",
+            'chapter5_frappe_prep_img': "Medieval manuscript illumination of a knight (Kaelen) clad in dark leather, moving silently across the ruins of a citadel wall in shadow. The perspective emphasizes the stealth and height, looking down onto the dark ground. Iconographic style, dark tones, subtle highlights.",
+            'chapter5_artefact_img': "Medieval manuscript illumination of a knight's armored gauntlet (Kaelen) holding the glowing 'Eye of the Archivist' (crystal globe) over a dark, barren landscape. The globe's light reveals faint, glowing arcane footprints in the landscape below. Focus on the tool's use. Iconographic style, deep reds and glowing blues.",
+            'chapter6_combat_seul_img': "Medieval manuscript illumination of a single, powerful knight (Dark Soul Torvin) delivering a heavy, visible blow with his sword, forcing another figure (Kaelen) to hastily roll and evade. Focus on the impact and the dramatic, desperate action. Iconographic style, vibrant clash effects.",
+            'chapter6_combat_magie_img': "Medieval manuscript illumination showing the moment of victory: a Dark Soul's heavy armor is cracking and dissolving in a burst of blue-white arcane energy, revealing only a wisp of ash and smoke inside. The background is a ruin, emphasizing the fragility of the revenant's form. Iconographic style, dramatic light and shadow.",
+            'chapter6_combat_frappe_img': "Medieval manuscript illumination showing the rapid collapse of a massive suit of dark armor onto a stone floor, emphasizing the silence and suddenness of the end. A small, stylized blade is barely visible near the armor's neck joint. Iconographic style, focus on the stillness of the aftermath.",
+            'chapter6_detour_alaric_img': "Medieval manuscript illumination of Alaric, looking subtly deceitful, carefully placing a small pouch of grey ashes into an ornate, dark glass jar, while another figure (Kaelen) watches with dawning suspicion. The jar is the focus, glowing with a subtle, unhealthy red light. Iconographic style.",
+            'chapter6_path_retreat_img': "Medieval manuscript illumination of a figure (Kaelen) limping heavily away from towering ruins and a dark forest, clutching a visible wound on their arm. The landscape is vast and unforgiving, emphasizing the difficulty of the journey. Iconographic style, focus on the figure's pain and solitude.",
+            'chapter6_path_img': "Medieval manuscript illumination of a high-fantasy crossroads at sunset. One path leads through a bright, clean forest, another through rocky, unstable terrain (Landes Cendrées), and a third towards a small cluster of stylized village buildings (Village d'Argile). Focus on the choice of paths. Iconographic style, warm sunset tones.",
+            'chapter7_village_img': "Medieval manuscript illumination of a small, humble medieval village made of clay and thatch, looking desolate. The villagers, stylized and hunched, surround a stone well where the water at the surface is subtly tainted with dark, spreading ash. Focus on the visible pollution and the villagers' despair. Iconographic style.",
+            'chapter8_end_of_part1_img': "Medieval manuscript illumination of a vast, misty landscape at dawn. In the far distance, the massive, stylized architecture of the Sanctuaire d'Ashwood rises into the sky, partially obscured by a dark, sulfurous cloud. The scene is dramatic and foreboding. Iconographic style, blues and deep yellows."
+        };
+
+        // --- Fonctions d'initialisation audio ---
+
         const TTS_CONFIG = {
-            chapter1: {
-                prompt: "Bruit de foule, cris de marchands, cliquetis de monnaie et une musique de luth lointaine, le tout dans une ambiance médiévale. Jouez ceci en boucle.",
-                voice: "Charon", // Voix neutre
-                loop: true
-            },
-            chapter2: {
-                prompt: "Murmures bas, ambiance sombre et le bruit du vent froid s'engouffrant dans une ruelle. Jouez ceci en boucle.",
-                voice: "Enceladus", // Voix breathy
-                loop: true
-            },
-            chapter3: {
-                prompt: "Bruit sec de monnaie que l'on jette, suivi d'un silence tendu dans la foule.",
-                voice: "Kore", // Voix ferme pour un événement
-                loop: false
-            },
-            chapter4_ruines: {
-                prompt: "Crépitement d'un petit feu, vent froid soufflant autour des pierres, et le cri lointain d'une chouette. Jouez ceci en boucle.",
-                voice: "Leda", // Voix légère, un peu eerie
-                loop: true
-            },
-            // Les autres chapitres non développés n'auront pas d'ambiance pour l'instant.
+            chapter1: { prompt: "Bruit de foule joyeuse, cris de marchands enthousiastes, musique de flûte et de luth entraînante, le tout dans une ambiance médiévale. Jouez ceci en boucle.", voice: "Puck", loop: true },
+            chapter1_3: { prompt: "Bruit de foule du marché, mais plus étouffé, avec une légère tension. On entend le froissement de tissus coûteux et un murmure hésitant. Jouez ceci en boucle.", voice: "Charon", loop: true },
+            chapter1_suite: { prompt: "Un cliquetis de métal lourd et froid, suivi d'un silence tendu et d'un souffle d'agacement. Jouez ceci une fois.", voice: "Orus", loop: false },
+            chapter1_4: { prompt: "Bruit d'un pas rapide s'éloignant sur des pavés, laissant derrière lui un silence amer et le bruit léger du vent dans les ruines. Jouez ceci en boucle.", voice: "Kore", loop: true },
+            chapter2: { prompt: "Murmures discrets, ambiance solennelle et le bruit léger de parchemins et d'une plume qui gratte. Jouez ceci en boucle.", voice: "Charon", loop: true },
+            chapter2_3: { prompt: "Un son de cloche lointaine, le bruit d'un parchemin que l'on déroule sur une table de bois. Ambiance de bibliothèque ancienne. Jouez ceci en boucle.", voice: "Achird", loop: true },
+            chapter2_suite: { prompt: "Chuchotements arcaniques et frottement de verre, ambiance de laboratoire secret. Jouez ceci en boucle.", voice: "Fenrir", loop: true },
+            chapter3: { prompt: "Bruit sec de monnaie que l'on jette, suivi d'un silence tendu dans la foule. Jouez ceci une fois.", voice: "Kore", loop: false },
+            chapter3_3: { prompt: "Bruit de papier ancien que l'on manipule et feuillette, concentré et rapide. Jouez ceci une fois.", voice: "Enceladus", loop: false },
+            chapter4_hypotheque: { prompt: "Un flash de magie bleue et le bruit sourd d'un serment scellé, suivi d'un murmure d'engagement. Jouez ceci une fois.", voice: "Orus", loop: false },
+            chapter4_depart: { prompt: "Bruit d'une course effrénée, le vent dans les oreilles et le cliquetis d'une armure légère. Jouez ceci en boucle.", voice: "Algieba", loop: true },
+            chapter4_ruines: { prompt: "Lueur de lanterne magique, vent frais soufflant doucement à travers des ruines majestueuses, et le bruit lointain d'une source d'eau. Jouez ceci en boucle.", voice: "Leda", loop: true },
+            chapter4_3: { prompt: "Bruit d'un souffle glacé et d'une onde de choc sourde résonnant dans les ruines. Jouez ceci une fois.", voice: "Iapetus", loop: false },
+            chapter4_seul: { prompt: "Cris lointains, vent hurlant et le son lourd d'une armure qui se déplace lentement. Jouez ceci en boucle.", voice: "Schedar", loop: true },
+            chapter5_magie_prep: { prompt: "Bruit de craie sur la pierre pour tracer une rune, concentration magique et léger sifflement d'un arc tendu. Jouez ceci en boucle.", voice: "Leda", loop: true },
+            chapter5_frappe_prep: { prompt: "Silence total, seulement le froissement de vêtements sombres et le bruit du vent. Jouez ceci en boucle.", voice: "Enceladus", loop: true },
+            chapter5_artefact: { prompt: "Le son d'un cristal qui vibre doucement et le bruit de la terre sèche qui craque sous les pieds. Jouez ceci en boucle.", voice: "Fenrir", loop: true },
+            chapter6_combat_seul: { prompt: "Le bruit lourd et menaçant d'une épée colossale frappant l'air, suivi d'un souffle de douleur. Jouez ceci une fois.", voice: "Schedar", loop: false },
+            chapter6_combat_magie: { prompt: "Un cri illusoire, le bruit de métal qui craque, suivi d'un vent froid qui emporte les cendres. Jouez ceci une fois.", voice: "Kore", loop: false },
+            chapter6_combat_frappe: { prompt: "Le son d'une lame qui pénètre, puis le silence lourd d'une armure qui tombe en morceaux. Jouez ceci une fois.", voice: "Kore", loop: false },
+            chapter6_detour_alaric: { prompt: "Le bruit d'un verre arcanique que l'on scelle, suivi d'un crépitement de magie noire. Jouez ceci une fois.", voice: "Charon", loop: false },
+            chapter6_path_retreat: { prompt: "Un halètement de douleur, le bruit lourd et régulier d'une marche difficile. Jouez ceci en boucle.", voice: "Kore", loop: true },
+            chapter6_path: { prompt: "Chants d'oiseaux lointains, bruit d'une rivière calme, l'ambiance d'une nature majestueuse et menacée. Jouez ceci en boucle.", voice: "Kore", loop: true },
+            chapter7_village: { prompt: "Le son de chèvres et de quelques murmures tristes. Le bruit d'une pelle qui gratte la terre. Jouez ceci en boucle.", voice: "Aoede", loop: true },
+            chapter8_end_of_part1: { prompt: "Un silence pesant, interrompu par le son lointain d'un gong funéraire et d'un vent chargé de soufre. Fin de l'ambiance. Jouez ceci une fois.", voice: "Charon", loop: false },
         };
 
         let audioSource = null;
         let audioContext = null;
         let isAudioInitialized = false;
 
-        // Fonction d'initialisation de l'AudioContext par interaction utilisateur
         function initAudioContext() {
             if (isAudioInitialized) return;
-
             try {
                 audioContext = new (window.AudioContext || window.webkitAudioContext)();
                 isAudioInitialized = true;
@@ -320,103 +1003,128 @@
                 document.getElementById('audio-init-button').disabled = true;
                 document.getElementById('audio-init-button').textContent = 'Audio Actif';
                 
-                // Charger l'audio du chapitre actuel (chapter1)
                 const currentChapter = document.querySelector('.chapter.active').id;
                 fetchAndPlayAmbientAudio(currentChapter).catch(err => {
                     console.error("Erreur au chargement initial de l'audio:", err);
-                    // Le statut sera mis à jour dans la fonction elle-même
                 });
-
             } catch (e) {
                 document.getElementById('audio-status').textContent = 'Erreur: Le navigateur ne prend pas en charge AudioContext.';
             }
         }
 
-        // Convertit une chaîne Base64 en ArrayBuffer
         function base64ToArrayBuffer(base64) {
             const binaryString = atob(base64);
             const len = binaryString.length;
             const bytes = new Uint8Array(len);
-            // Correction de la boucle for
             for (let i = 0; i < len; i++) {
                 bytes[i] = binaryString.charCodeAt(i);
             }
             return bytes.buffer;
         }
+        
+        // Fonction utilitaire pour convertir PCM en WAV
+        function pcmToWav(pcm16, sampleRate) {
+            const numChannels = 1;
+            const bytesPerSample = 2; // 16-bit PCM
 
-        // --- Logique d'appel de l'API TTS et de lecture ---
+            const buffer = new ArrayBuffer(44 + pcm16.length * bytesPerSample);
+            const view = new DataView(buffer);
+            let offset = 0;
+
+            // RIFF chunk descriptor
+            writeString(view, offset, 'RIFF'); offset += 4;
+            view.setUint32(offset, 36 + pcm16.length * bytesPerSample, true); offset += 4;
+            writeString(view, offset, 'WAVE'); offset += 4;
+
+            // fmt chunk
+            writeString(view, offset, 'fmt '); offset += 4;
+            view.setUint32(offset, 16, true); offset += 4; // Sub-chunk size (16 for PCM)
+            view.setUint16(offset, 1, true); offset += 2; // Audio format (1 for PCM)
+            view.setUint16(offset, numChannels, true); offset += 2;
+            view.setUint32(offset, sampleRate, true); offset += 4;
+            view.setUint32(offset, sampleRate * numChannels * bytesPerSample, true); offset += 4; // Byte rate
+            view.setUint16(offset, numChannels * bytesPerSample, true); offset += 2; // Block align
+            view.setUint16(offset, 16, true); offset += 2; // Bits per sample
+
+            // data chunk
+            writeString(view, offset, 'data'); offset += 4;
+            view.setUint32(offset, pcm16.length * bytesPerSample, true); offset += 4;
+
+            // Write PCM data
+            for (let i = 0; i < pcm16.length; i++, offset += bytesPerSample) {
+                view.setInt16(offset, pcm16[i], true);
+            }
+
+            return new Blob([buffer], { type: 'audio/wav' });
+        }
+
+        function writeString(view, offset, string) {
+            for (let i = 0; i < string.length; i++) {
+                view.setUint8(offset + i, string.charCodeAt(i));
+            }
+        }
 
         async function fetchAndPlayAmbientAudio(chapterId) {
             const statusDiv = document.getElementById('audio-status');
             const config = TTS_CONFIG[chapterId];
             
-            if (!isAudioInitialized) return;
+            if (!isAudioInitialized || !config) return;
 
-            // Arrêter l'audio précédent
-            if (audioSource) {
-                audioSource.stop();
-                audioSource = null;
-            }
-
-            if (!config) {
-                statusDiv.textContent = 'Aucune ambiance définie pour ce chapitre.';
-                return; 
-            }
+            stopCurrentAudio(); 
 
             statusDiv.textContent = `Génération de l'ambiance : ${chapterId}... (Ceci peut prendre quelques secondes)`;
             
             const maxRetries = 3;
             let base64AudioData = null;
-            const sampleRate = 24000; // Fréquence d'échantillonnage fixe pour le modèle TTS
+            let audioSampleRate = 24000;
+            
+            const API_KEY = "";
+            const TTS_MODEL = "gemini-2.5-flash-preview-tts";
+            const TTS_URL = `https://generativelanguage.googleapis.com/v1beta/models/${TTS_MODEL}:generateContent?key=${API_KEY}`;
+
 
             for (let attempt = 0; attempt < maxRetries; attempt++) {
                 try {
                     const payload = {
-                        contents: [{
-                            parts: [{ text: config.prompt }]
-                        }],
+                        contents: [{ parts: [{ text: config.prompt }] }],
                         generationConfig: {
                             responseModalities: ["AUDIO"],
                             speechConfig: {
-                                voiceConfig: {
-                                    prebuiltVoiceConfig: { voiceName: config.voice }
-                                }
+                                voiceConfig: { prebuiltVoiceConfig: { voiceName: config.voice } }
                             }
                         },
-                        model: "gemini-2.5-flash-preview-tts"
+                        model: TTS_MODEL
                     };
                     
-                    const apiKey = "";
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
-                    
-                    const response = await fetch(apiUrl, {
+                    const response = await fetch(TTS_URL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
                     });
                     
                     if (!response.ok) {
-                        // Afficher une erreur plus claire pour les problèmes d'API (401, 500, etc.)
                         const errorText = await response.text();
-                        console.error("API Error Response:", errorText);
-                        throw new Error(`Erreur API: Statut ${response.status}. Veuillez vérifier la clé/le modèle.`);
+                        throw new Error(`Erreur API: Statut ${response.status}. ${errorText}`);
                     }
                     
                     const result = await response.json();
                     const part = result?.candidates?.[0]?.content?.parts?.[0];
-                    
                     base64AudioData = part?.inlineData?.data;
-                    
-                    if (base64AudioData) {
-                        break; // Succès
-                    } else {
-                        throw new Error("Données audio manquantes dans la réponse.");
+                    const mimeType = part?.inlineData?.mimeType;
+
+                    if (base64AudioData && mimeType) {
+                        const rateMatch = mimeType.match(/rate=(\d+)/);
+                        if (rateMatch) {
+                            audioSampleRate = parseInt(rateMatch[1], 10);
+                        }
+                        break;
                     }
+                    throw new Error("Données audio manquantes ou mimeType invalide dans la réponse.");
 
                 } catch (error) {
                     console.error(`Tentative ${attempt + 1} échouée:`, error);
                     if (attempt === maxRetries - 1) {
-                        statusDiv.textContent = `Échec de la génération audio: ${error.message.substring(0, 50)}...`;
+                        statusDiv.textContent = `Échec de la génération audio: ${error.message.substring(0, 70)}...`;
                         throw error;
                     }
                     const delay = Math.pow(2, attempt) * 1000;
@@ -424,70 +1132,136 @@
                 }
             }
             
-            if (!base64AudioData) {
-                statusDiv.textContent = 'Erreur: Aucune donnée audio générée après les tentatives.';
-                return;
-            }
+            if (!base64AudioData) return;
 
-            // Traitement et Lecture (données PCM 16-bit)
             const pcmData = base64ToArrayBuffer(base64AudioData);
-            
-            // Créer un buffer AudioContext pour les données PCM 16 bits (mono)
-            const numberOfChannels = 1;
-            const buffer = audioContext.createBuffer(numberOfChannels, pcmData.byteLength / 2, sampleRate);
-            const nowBuffering = buffer.getChannelData(0);
-
-            // Convertir le PCM 16-bit (Int16Array) en Float32Array pour AudioBuffer
             const pcm16 = new Int16Array(pcmData);
-            for (let i = 0; i < pcm16.length; i++) {
-                // Normalisation: Int16 va de -32768 à 32767. On divise par 32768 (2^15).
-                nowBuffering[i] = pcm16[i] / 32768;
-            }
+            const wavBlob = pcmToWav(pcm16, audioSampleRate);
+            const audioUrl = URL.createObjectURL(wavBlob);
 
             statusDiv.textContent = `Ambiance chargée : ${chapterId}`;
             
-            // Créer la source de lecture
-            audioSource = audioContext.createBufferSource();
-            audioSource.buffer = buffer;
             
-            if (config.loop) {
-                audioSource.loop = true;
-            } else {
-                audioSource.onended = () => { audioSource = null; };
-            }
+            const audio = new Audio(audioUrl);
+            audio.loop = config.loop || false;
+            audio.play().catch(e => console.error("Erreur de lecture audio:", e));
             
-            audioSource.connect(audioContext.destination);
-            audioSource.start(0);
+            window._currentAudio = audio;
         }
 
-        // Fonction JavaScript pour changer de chapitre
+        function stopCurrentAudio() {
+            if (window._currentAudio) {
+                window._currentAudio.pause();
+                window._currentAudio.currentTime = 0;
+            }
+        }
+
+
+        // --- Fonctions de logique du jeu (mise à jour) ---
+
         function goToChapter(chapterId) {
-            // 1. Désactiver le chapitre actuellement actif
             const currentChapter = document.querySelector('.chapter.active');
             if (currentChapter) {
                 currentChapter.classList.remove('active');
             }
             
-            // 2. Activer le nouveau chapitre
             const nextChapter = document.getElementById(chapterId);
             if (nextChapter) {
                 nextChapter.classList.add('active');
-                // Optionnel : faire défiler vers le haut de la page pour le nouveau chapitre
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Tenter de charger l'image du chapitre si elle n'est pas encore générée
+                const imgElement = nextChapter.querySelector('img');
+                if (imgElement) {
+                    const imgId = imgElement.id;
+                    if (IMAGE_PROMPTS[imgId] && !imgElement.src.startsWith('data:')) {
+                        generateImageAndSetSrc(imgId, IMAGE_PROMPTS[imgId]);
+                    }
+                }
             } else {
                 console.error('Chapitre non trouvé :', chapterId);
-                // Si le chapitre n'existe pas, revenez à l'accueil pour éviter l'erreur
                 document.getElementById('chapter1').classList.add('active');
             }
 
-            // 3. Charger et jouer l'ambiance si le système est initialisé
             if (isAudioInitialized) {
+                stopCurrentAudio(); // Arrêter l'audio précédent
                 fetchAndPlayAmbientAudio(chapterId).catch(err => {
-                    console.error("Erreur Audio:", err);
-                    // Le statut est déjà mis à jour dans la fonction fetchAndPlayAmbientAudio
+                    console.error("Audio Load Error:", err);
                 });
             }
         }
+
+        // --- Fonctions de génération d'image ---
+
+        async function generateImageAndSetSrc(imgId, prompt) {
+            const imgElement = document.getElementById(imgId);
+            const container = imgElement.parentElement;
+            const loadingDiv = container.querySelector('.loading-text');
+
+            if (imgElement.src.startsWith('data:')) return; // Already generated
+
+            loadingDiv.textContent = 'Génération de l\'Enluminure...';
+            loadingDiv.style.display = 'block';
+            imgElement.style.display = 'none';
+
+            const maxRetries = 3;
+            let base64Data = null;
+            
+            // Constantes API pour la clarté et la robustesse
+            const API_KEY = "";
+            const IMG_MODEL = "imagen-4.0-generate-001";
+            const IMG_URL = `https://generativelanguage.googleapis.com/v1beta/models/${IMG_MODEL}:predict?key=${API_KEY}`;
+
+
+            for (let attempt = 0; attempt < maxRetries; attempt++) {
+                try {
+                    const payload = { 
+                        instances: { prompt: prompt }, 
+                        parameters: { "sampleCount": 1 } 
+                    };
+                    
+                    const response = await fetch(IMG_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`Erreur API Imagen: Statut ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    if (result.predictions && result.predictions.length > 0 && result.predictions[0].bytesBase64Encoded) {
+                        base64Data = result.predictions[0].bytesBase64Encoded;
+                        break;
+                    } else {
+                        throw new Error("Données d'image manquantes dans la réponse.");
+                    }
+                } catch (error) {
+                    console.error(`Tentative ${attempt + 1} échouée pour l'image ${imgId}:`, error);
+                    if (attempt === maxRetries - 1) {
+                        loadingDiv.textContent = `Échec de la génération. (Erreur: ${error.message.substring(0, 40)}...)`;
+                        return;
+                    }
+                    const delay = Math.pow(2, attempt) * 1000;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+            }
+
+            if (base64Data) {
+                imgElement.src = `data:image/png;base64,${base64Data}`;
+                loadingDiv.style.display = 'none';
+                imgElement.style.display = 'block';
+            }
+        }
+
+        // --- Initialisation au chargement de la fenêtre ---
+        window.onload = function () {
+            // Lancer la génération des images pour les chapitres principaux développés
+            // Ne pas générer tous les chapitres dès le départ pour une meilleure performance
+            generateImageAndSetSrc('chapter1_img', IMAGE_PROMPTS['chapter1_img']);
+        };
     </script>
 </body>
 </html>
