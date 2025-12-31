@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grimoire Royal - L'Aetherium Compendium</title>
+    <title>Grimoire Royal - La Quête de l'Équilibre</title>
     <!-- Chargement de Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -28,113 +28,267 @@
             }
         }
 
-        // --- Données du Jeu (Narrative Game Data) ---
+        // --- Données du Jeu (Narrative Game Data - Nouvelle Histoire) ---
         const gameData = {
+            // CHAPITRE I : Le Serment du Moine (3 CHOIX)
             "start": {
-                title: "L'Aube du Mystère",
-                text: "Vous vous réveillez dans une chambre froide, l'odeur de la moisissure et de l'encre ancienne pique vos narines. Le Compendium des Secrets Hermétiques (ce grimoire) repose ouvert à vos côtés. Le soleil n'est pas encore levé. Vous entendez des pas lourds qui s'approchent du corridor extérieur. Que faites-vous ?",
+                title: "Le Serment des Voeux Brisés",
+                text: "Depuis la découverte d'un manuscrit codé dans les archives du Monastère des Sables Gris, vous, Frère Kael, savez la vérité : l'équilibre du monde repose sur la restitution des Cendres des Anciens Héros au Sanctuaire du Feu Sacré. L'Ombre Dormante se réveille. Vous quittez l'habit monacal et, sans armure ni or, vous partez avec juste votre foi et le Compendium. L'unique piste mène à la capitale marchande d'Aethelgard. Comment voyagez-vous ?",
                 choices: [
-                    { text: "Attraper le grimoire et vous cacher sous le lit.", target: "folio_1" },
-                    { text: "Vous lever et chercher une arme.", target: "folio_2" },
-                    { text: "Faire semblant de dormir, en espérant qu'ils passent.", target: "folio_3" }
+                    { text: "Prendre les chemins principaux, rapides mais risqués.", target: "chapitre_1_chemins_risques" },
+                    { text: "Couper à travers la Forêt Oubliée, lente mais discrète.", target: "chapitre_1_foret_oubliee" },
+                    { text: "Suivre un ancien sentier de pèlerinage, plus sûr mais très long.", target: "chapitre_1_pelerinage" }
                 ]
             },
-            "folio_1": {
-                title: "Le Refuge Précipité (Folio 1)",
-                text: "Vous vous glissez sous le lit, le cœur battant. Le grimoire est lourd et froid. La porte s'ouvre avec un grincement sinistre. Deux silhouettes encapuchonnées entrent. Elles fouillent la chambre mais ne regardent pas sous le lit. Après un temps infini, elles partent. Vous sortez de votre cachette.",
+            
+            // BRANCHES DE VOYAGE VERS AETHELGARD (3 CHOIX DE CONTINUATION)
+            "chapitre_1_chemins_risques": {
+                title: "Vers Aethelgard: Le Prix de la Vitesse",
+                text: "Sur les routes poussiéreuses, vous êtes repéré par des brigands. Votre vêtement de moine-chevalier sans armure les amuse. Ils vous dépouillent de votre bourse vide et vous laissent partir, croyant n'avoir affaire qu'à un fou. Vous arrivez à Aethelgard affamé et honteux.",
                 choices: [
-                    { text: "Examiner la pièce qu'elles ont fouillée.", target: "folio_4" },
-                    { text: "Ouvrir le grimoire à la première page lue.", target: "folio_5" }
+                    { text: "Chercher immédiatement l'Antiquaire pour la première piste.", target: "chapitre_1_ville_antiquaire" },
+                    { text: "Trouver une église ou un temple pour prier et demander l'aumône.", target: "chapitre_1_eglise" },
+                    { text: "Tenter de se faire engager comme porteur pour gagner quelques pièces (perdre une journée).", target: "chapitre_1_travail_perdu" }
                 ]
             },
-            "folio_2": {
-                title: "L'Imprudence Armée (Folio 2)",
-                text: "Vous vous levez et trouvez un petit tisonnier rouillé près de la cheminée. Les pas sont désormais juste derrière la porte. Vous vous tenez prêt. La porte s'ouvre et les deux hommes encapuchonnés vous voient. Ils rient et l'un d'eux lève une hache. Vous êtes trop lent.",
+            "chapitre_1_foret_oubliee": {
+                title: "L'Ombre de la Forêt: L'Avertissement",
+                text: "La forêt est une tapisserie d'ombres. Vous rencontrez l'Ermite de la Faille qui vous offre de l'eau et vous met en garde contre l'Ombre. Elle vous donne un petit talisman de bois tordu, 'pour les jours de grande incertitude'. Vous arrivez à Aethelgard avec un jour de retard, mais intact.",
                 choices: [
-                    { text: "FIN : Échec.", target: "end_fail" }
+                    { text: "Chercher immédiatement l'Antiquaire pour la première piste.", target: "chapitre_1_ville_antiquaire" },
+                    { text: "Méditer sur les paroles de l'Ermite dans le Jardin d'un temple.", target: "chapitre_1_meditation" },
+                    { text: "Vendre le talisman sur le marché pour acheter de la nourriture (vous avez faim).", target: "chapitre_1_vendre_talisman" }
                 ]
             },
-            "folio_3": {
-                title: "Le Risque du Sommeil (Folio 3)",
-                text: "Vous fermez les yeux, retenant votre souffle. Les pas s'arrêtent. Un silence s'installe. Puis, un rire sec éclate juste au-dessus de vous. Une main gantée vous saisit la cheville et vous tire hors du lit. Vous avez été découvert.",
+            "chapitre_1_pelerinage": {
+                title: "Le Long Chemin de la Foi",
+                text: "Le sentier des pèlerins est difficile, mais paisible. Après plusieurs jours, vous arrivez à Aethelgard, fatigué, mais fortifié par la discipline. Votre habit simple vous fait passer inaperçu dans la foule animée de la ville.",
                 choices: [
-                    { text: "FIN : Capture.", target: "end_fail" }
+                    { text: "Chercher immédiatement l'Antiquaire pour la première piste.", target: "chapitre_1_ville_antiquaire" },
+                    { text: "Visiter la bibliothèque pour tenter de déchiffrer une partie du manuscrit.", target: "chapitre_1_bibliotheque" },
+                    { text: "Observer la ville et les gens avant d'agir.", target: "chapitre_1_observation" }
                 ]
             },
-            "folio_4": {
-                title: "Traces de Passage (Folio 4)",
-                text: "Vous fouillez la pièce. Sur la table, vous trouvez une carte rudimentaire déchirée et un sachet contenant trois pièces d'or. La carte montre un chemin vers les 'Terres Brûlées'. Le soleil se lève, le couloir est libre. Que faites-vous ?",
+
+            // CONSÉQUENCES DU VOYAGE (BRANCHES INTERMÉDIAIRES)
+            "chapitre_1_eglise": {
+                title: "Le Secours de l'Église",
+                text: "Un prêtre compatissant vous donne un repas et vous offre une petite bourse. Vous êtes reposé et prêt à continuer.",
                 choices: [
-                    { text: "Prendre les pièces et suivre le chemin indiqué sur la carte.", target: "folio_6" },
-                    { text: "Ignorer la carte, prendre les pièces et chercher une autre sortie.", target: "folio_7" }
+                    { text: "Aller trouver l'Antiquaire.", target: "chapitre_1_ville_antiquaire" }
                 ]
             },
-            "folio_5": {
-                title: "Le Savoir Dévoilé (Folio 5)",
-                text: "Vous ouvrez le grimoire. Les pages 4 et 5 contiennent la 'Proclamation des Anciens' que vous avez déjà lue, mais un ajout manuscrit attire votre attention. Il dit : 'La sortie est sous le sceau brisé.' Vous examinez le sol.",
+            "chapitre_1_travail_perdu": {
+                title: "Le Temps Perdu",
+                text: "Après une journée de labeur, vous n'avez qu'une poignée de pièces et vous êtes épuisé. L'Ombre Dormante gagne du temps.",
                 choices: [
-                    { text: "Chercher le sceau brisé sur le sol.", target: "folio_8" },
-                    { text: "Ignorer l'inscription et prendre la fuite par la porte principale.", target: "folio_7" }
+                    { text: "Aller trouver l'Antiquaire.", target: "chapitre_1_ville_antiquaire" }
                 ]
             },
-            "folio_6": {
-                title: "Terres Brûlées (Folio 6)",
-                text: "Après des heures de marche, la carte vous a mené à une plaine stérile et fumante. Un dragon rouge planant au-dessus des montagnes vous repère. Sa fureur est sans borne. Vous n'avez aucune chance de vous enfuir.",
+            "chapitre_1_meditation": {
+                title: "Clarté et Sagesse",
+                text: "La méditation vous offre un aperçu de la nature trompeuse du mal. Vous gagnez en clarté spirituelle pour le reste de la quête.",
                 choices: [
-                    { text: "FIN : Brûlé vif.", target: "end_fail" }
+                    { text: "Aller trouver l'Antiquaire.", target: "chapitre_1_ville_antiquaire" }
                 ]
             },
-            "folio_7": {
-                title: "Fuite Incertaine (Folio 7)",
-                text: "Vous vous précipitez hors de la chambre. Vous courez dans un long couloir sombre. Au bout, vous apercevez une porte en bois. Vous l'ouvrez et vous vous trouvez face à un précipice. Le couloir est une impasse. Un cri d'alarme retentit derrière vous.",
+            "chapitre_1_vendre_talisman": {
+                title: "Le Prix de la Faim",
+                text: "Vous vendez le talisman. Vous êtes rassasié, mais un sentiment de regret vous ronge d'avoir cédé un cadeau mystique pour si peu.",
                 choices: [
-                    { text: "FIN : Piégé.", target: "end_fail" }
+                    { text: "Aller trouver l'Antiquaire.", target: "chapitre_1_ville_antiquaire" }
                 ]
             },
-            "folio_8": {
-                title: "Le Passage Secret (Folio 8)",
-                text: "Sous le lit se trouve un symbole gravé, brisé en son centre. En poussant sur le fragment manquant, un mécanisme se déclenche. Une trappe s'ouvre, révélant un escalier sombre. Vous y descendez rapidement, le grimoire sous le bras. Vous avez échappé à la capture.",
+            "chapitre_1_bibliotheque": {
+                title: "Recherche et Découverte",
+                text: "Vous passez des heures à la bibliothèque, déchiffrant une seule phrase cruciale du manuscrit : 'La Sagesse est gardée par la Prudence.' Un indice précieux pour la suite.",
                 choices: [
-                    { text: "FIN : Victoire. Vous avez survécu à l'aube.", target: "end_success" }
+                    { text: "Aller trouver l'Antiquaire.", target: "chapitre_1_ville_antiquaire" }
                 ]
             },
+            "chapitre_1_observation": {
+                title: "La Vigilance du Moine",
+                text: "En observant les ruelles, vous remarquez une ombre vous suivant. Vous la semez facilement, conscient d'avoir été repéré par des agents du mal.",
+                choices: [
+                    { text: "Aller trouver l'Antiquaire.", target: "chapitre_1_ville_antiquaire" }
+                ]
+            },
+
+
+            // CHAPITRE II : Les Cendres de la Sagesse (3 CHOIX)
+            "chapitre_1_ville_antiquaire": {
+                title: "L'Antiquaire de la Capitale",
+                text: "Maitre Elmsworth, l'antiquaire, est réticent. Vous lui montrez le manuscrit codé. Il vous révèle que la première relique, les 'Cendres de la Sagesse', est cachée dans la Crypte du Guetteur Silencieux, accessible uniquement par une énigme. Elmsworth exige une preuve de votre engagement.",
+                choices: [
+                    { text: "Raconter votre serment et votre fuite du monastère.", target: "chapitre_2_enigme_1" },
+                    { text: "Tenter de lui acheter l'information avec l'argent gagné/reçu (ou bluffer).", target: "chapitre_2_ville_echec" },
+                    { text: "Proposer de faire une tâche simple et honnête pour lui en échange.", target: "chapitre_2_ville_service" }
+                ]
+            },
+            "chapitre_2_ville_echec": {
+                title: "L'Échec de la Conviction",
+                text: "L'Antiquaire, irrité par votre bluff ou votre manque de moyens, vous chasse. Il est trop tard pour revenir en arrière ; le manuscrit vous obsède. L'Ombre Dormante gagne du temps.",
+                choices: [
+                    { text: "FIN : Échec par Impuissance.", target: "end_fail" }
+                ]
+            },
+            "chapitre_2_ville_service": {
+                title: "Le Prix de l'Honnêteté",
+                text: "Vous passez la soirée à répertorier des parchemins pour l'Antiquaire. Satisfait par votre labeur, il vous donne l'énigme et vous laisse partir.",
+                choices: [
+                    { text: "Obtenir l'Énigme : 'Je suis la pensée avant l'action...'", target: "chapitre_2_enigme_1" }
+                ]
+            },
+
+            // Énigme (3 CHOIX)
+            "chapitre_2_enigme_1": {
+                title: "Le Passage Dérobé",
+                text: "L'énigme est : 'Je suis la pensée avant l'action, l'écho avant le cri. Si tu me perds, tu n'es plus qu'un pion. Qui suis-je ?' La Crypte se trouve dans les falaises au-dessus de la mer. Vous êtes face au mécanisme d'entrée.",
+                choices: [
+                    { text: "Réponse : La Prudence", target: "chapitre_2_crypte_prudence" },
+                    { text: "Réponse : L'Ombre", target: "chapitre_2_crypte_echec_reponse" },
+                    { text: "Réponse : Le Courage", target: "chapitre_2_crypte_echec_reponse" }
+                ]
+            },
+            "chapitre_2_crypte_echec_reponse": {
+                title: "L'Erreur et le Piège",
+                text: "Vous prononcez le mot à voix haute. Des sifflements remplissent la crypte. Le sol s'effondre sous vos pieds dans un nuage de poussière et de débris. Vous tombez, assommé par la pierre.",
+                choices: [
+                    { text: "FIN : Échec par Hâte.", target: "end_fail" }
+                ]
+            },
+            "chapitre_2_crypte_prudence": {
+                title: "Cendres de la Sagesse",
+                text: "Vous murmurez : 'La Prudence'. Un mécanisme s'enclenche, révélant une chambre funéraire. Vous rassemblez les cendres, sentant une ancienne paix vous envahir. Les Cendres de la Sagesse sont à vous. La prochaine destination est le village oublié de Kael-Dra, sur les Monts de Brume.",
+                choices: [
+                    { text: "Voyager vers Kael-Dra, à la recherche des Cendres du Courage.", target: "chapitre_3_kael_dra_arrivee" }
+                ]
+            },
+
+            // CHAPITRE III : Les Cendres du Courage (3 CHOIX)
+            "chapitre_3_kael_dra_arrivee": {
+                title: "Le Village de l'Oubli",
+                text: "Kael-Dra est enveloppé d'un silence pesant. Seule l'Aînée Mara est encore là. Elle garde les 'Cendres du Courage'. Elle vous raconte que depuis des mois, la terreur s'est installée : une 'Bête de Brume' a chassé les villageois. Elle n'abandonnera les cendres qu'en échange d'une action pour sauver ce qui reste du village.",
+                choices: [
+                    { text: "Promettre d'affronter la Bête de Brume (bien que sans arme).", target: "chapitre_3_promesse_action" },
+                    { text: "Tenter de négocier avec Mara, en expliquant l'urgence de l'Équilibre.", target: "chapitre_3_negociation" },
+                    { text: "Proposer de partir chercher de l'aide et des vivres en ville (perdre du temps, mais être plus préparé).", target: "chapitre_3_chercher_aide" }
+                ]
+            },
+            "chapitre_3_chercher_aide": {
+                title: "La Voie de la Lâcheté",
+                text: "L'Aînée Mara refuse. 'Le Courage est ici, ou il n'est nulle part. Le Mal ne prend pas de pause.' Elle se retire dans sa masure. Le Compendium vous avertit que vous avez trop tardé.",
+                choices: [
+                    { text: "FIN : Échec par Précaution.", target: "end_fail" }
+                ]
+            },
+            "chapitre_3_negociation": {
+                title: "L'Épreuve de la Confiance",
+                text: "L'Aînée Mara vous regarde avec tristesse. 'La négociation n'a pas sa place face au Mal. Si vous n'avez pas le cœur de défendre les faibles, comment pourrez-vous défendre le monde ?'",
+                choices: [
+                    { text: "FIN : Échec par Égoïsme.", target: "end_fail" }
+                ]
+            },
+            
+            // CONFRONTATION AVEC LA BÊTE (3 CHOIX)
+            "chapitre_3_promesse_action": {
+                title: "Le Piège de l'Ombre",
+                text: "Vous vous postez à l'orée de la brume. La Bête arrive : un loup massif et malade. L'Aînée Mara vous observe de loin. Le talisman de l'Ermite (si vous l'avez gardé) vibre et vous montre une source de corruption dans l'eau du village, qui rend le loup fou.",
+                choices: [
+                    { text: "Tuer le loup pour satisfaire Mara et obtenir les Cendres.", target: "chapitre_3_tuer_loup_moral" },
+                    { text: "Ignorer le loup et chercher la source de corruption dans la rivière.", target: "chapitre_3_source_corruption" },
+                    { text: "Utiliser un chant monastique de guérison pour tenter de calmer la bête.", target: "chapitre_3_chant_calmant" }
+                ]
+            },
+            "chapitre_3_tuer_loup_moral": {
+                title: "Le Coût de la Célérité",
+                text: "Vous mettez fin à la souffrance du loup, mais le Compendium semble se fermer. Vous avez sacrifié l'innocence pour le temps. Mara vous donne les Cendres du Courage, mais ses yeux sont emplis de déception.",
+                choices: [
+                    { text: "Prendre les cendres et partir vers le Sanctuaire du Feu Sacré.", target: "chapitre_4_sanctuaire_approche" }
+                ]
+            },
+            "chapitre_3_chant_calmant": {
+                title: "La Force de l'Âme",
+                text: "Votre chant apaise temporairement la Bête. Elle s'éloigne, mais la corruption persiste. Vous gagnez la confiance de Mara, mais vous devez toujours résoudre le problème de l'eau.",
+                choices: [
+                    { text: "Chercher la source de corruption dans la rivière.", target: "chapitre_3_source_corruption" }
+                ]
+            },
+            "chapitre_3_source_corruption": {
+                title: "La Vraie Cause",
+                text: "Vous trouvez la fissure suintante d'encre noire. Utilisant l'essence des Cendres de la Sagesse (Ash 1), vous la scellez. La Bête, libérée de la corruption, s'enfuit. Mara, impressionnée par votre compassion et votre sagesse, vous donne les Cendres du Courage. Vous avez prouvé votre valeur.",
+                choices: [
+                    { text: "Prendre les cendres et partir vers le Sanctuaire du Feu Sacré.", target: "chapitre_4_sanctuaire_approche" }
+                ]
+            },
+
+            // CHAPITRE IV : Le Sanctuaire du Feu Sacré (3 CHOIX)
+            "chapitre_4_sanctuaire_approche": {
+                title: "La Tentation de l'Ombre",
+                text: "Sur le dernier col menant au Sanctuaire, l'Émissaire de l'Ombre Dormante vous attend. Il vous propose un marché : lui donner une seule des deux cendres (Sagesse ou Courage) pour qu'il puisse équilibrer le mal par la force. Il dit que l'équilibre total est trop dangereux. Il vous garantit que le monde sera sûr, mais à moitié seulement.",
+                choices: [
+                    { text: "Refuser le marché et continuer vers le Sanctuaire.", target: "chapitre_4_climax_total" },
+                    { text: "Céder les Cendres du Courage, par peur de l'échec total.", target: "chapitre_4_climax_partiel_courage" },
+                    { text: "Céder les Cendres de la Sagesse, pour garder la force d'agir (le Courage).", target: "chapitre_4_climax_partiel_sagesse" }
+                ]
+            },
+            "chapitre_4_climax_partiel_courage": {
+                title: "La Sagesse Seule",
+                text: "Vous jetez les Cendres du Courage à l'Émissaire. Au Sanctuaire, la Flamme Sacrée vacille. L'Ombre est contenue, mais une moitié du monde est plongée dans la peur et les conflits incessants. Vous avez fait un choix imparfait, mais le monde survit.",
+                choices: [
+                    { text: "FIN : Succès Partiel. Le Combat Continue.", target: "end_partial_success" }
+                ]
+            },
+            "chapitre_4_climax_partiel_sagesse": {
+                title: "Le Courage Seul",
+                text: "Vous donnez les Cendres de la Sagesse à l'Émissaire. Au Sanctuaire, la Flamme brûle avec une fureur brute. L'Ombre est contenue, mais l'humanité, bien que courageuse, agit sans réfléchir, causant des désastres par imprudence. Vous avez fait un choix imparfait, mais le monde survit.",
+                choices: [
+                    { text: "FIN : Succès Partiel. Le Combat Continue.", target: "end_partial_success" }
+                ]
+            },
+            "chapitre_4_climax_total": {
+                title: "Le Triomphe de l'Équilibre",
+                text: "Vous refusez. L'Émissaire est impuissant face à la pureté de votre mission. Vous arrivez au Sanctuaire. Avec les Cendres de la Sagesse et du Courage, vous accomplissez le Rituel de l'Équilibre. La Flamme Sacrée s'élève, brillante et constante. L'Ombre Dormante est repoussée pour des siècles.",
+                choices: [
+                    { text: "FIN : Victoire Totale. La Paix est Rétablie.", target: "end_success" }
+                ]
+            },
+
+            // Fins
             "end_fail": {
-                title: "Fin de l'Aventure",
-                text: "Votre voyage s'arrête ici. Vos choix vous ont mené à une fin prématurée. Relisez le Compendium et tentez à nouveau de percer les secrets de l'Aetherium.",
+                title: "Le Rêve Éteint",
+                text: "Le déséquilibre s'installe. L'Ombre Dormante étend son voile sur le royaume. Vous n'avez pas réussi à surmonter les épreuves. Relisez le Compendium des Secrets et tentez de retrouver l'Équilibre.",
                 choices: [
-                    { text: "Recommencer.", target: "start" }
+                    { text: "Reprendre l'aventure (Début).", target: "start" }
+                ]
+            },
+            "end_partial_success": {
+                title: "L'Équilibre Fragile",
+                text: "Le monde est en paix, mais l'Ombre attend son heure. Votre sacrifice a permis de gagner du temps, mais l'harmonie est incomplète. C'est le destin de l'Équilibre, il doit être constamment maintenu.",
+                choices: [
+                    { text: "Reprendre l'aventure (Début).", target: "start" }
                 ]
             },
             "end_success": {
-                title: "La Lumière du Matin",
-                text: "Vous émergez des souterrains, aveuglé par le soleil. Le grimoire est votre seul allié. L'aventure ne fait que commencer. Vous avez réussi le premier chapitre.",
+                title: "La Lumière Éternelle",
+                text: "Votre quête est terminée. La Flamme Sacrée vous rend à la vie monastique, mais désormais, vous êtes un gardien. Les Anciens Héros veillent à travers vous. L'Aetherium est en paix. Félicitations, Chevalier du Compendium.",
                 choices: [
-                    { text: "Recommencer.", target: "start" }
+                    { text: "Reprendre l'aventure (Début).", target: "start" }
                 ]
             }
         };
 
         // Roman Numeral Converter - Mappage sûr pour la conversion
         const romanNumerals = [
-            { value: 1000, numeral: 'M' },
-            { value: 900, numeral: 'CM' },
-            { value: 500, numeral: 'D' },
-            { value: 400, numeral: 'CD' },
-            { value: 100, numeral: 'C' },
-            { value: 90, numeral: 'XC' },
-            { value: 50, numeral: 'L' },
-            { value: 40, numeral: 'XL' },
-            { value: 10, numeral: 'X' },
-            { value: 9, numeral: 'IX' },
-            { value: 5, numeral: 'V' },
-            { value: 4, numeral: 'IV' },
+            { value: 1000, numeral: 'M' }, { value: 900, numeral: 'CM' }, { value: 500, numeral: 'D' }, 
+            { value: 400, numeral: 'CD' }, { value: 100, numeral: 'C' }, { value: 90, numeral: 'XC' }, 
+            { value: 50, numeral: 'L' }, { value: 40, numeral: 'XL' }, { value: 10, numeral: 'X' }, 
+            { value: 9, numeral: 'IX' }, { value: 5, numeral: 'V' }, { value: 4, numeral: 'IV' }, 
             { value: 1, numeral: 'I' }
         ];
 
         /**
          * Convertit un nombre arabe en chiffre romain.
-         * @param {number} num Le nombre à convertir.
-         * @returns {string} Le chiffre romain correspondant ou le nombre original en cas d'erreur.
          */
         function toRoman(num) {
             if (typeof num !== 'number' || isNaN(num) || num <= 0 || num > 3999) return String(num); 
@@ -152,7 +306,10 @@
 
         // --- Configuration et Utilitaire API ---
         const apiKey = ""; // L'API key est fournie par l'environnement Canvas
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key=${apiKey}`;
+        
+        // URLs des modèles
+        const API_URL_IMAGE = `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key=${apiKey}`;
+        const API_URL_TEXT = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
 
         // Utility pour la relance avec backoff exponentiel
         async function retryFetch(url, options, maxRetries = 3) {
@@ -179,80 +336,231 @@
             }
         }
 
+        // --- Fonctions LLM (Gemini API) ---
+
+        /**
+         * Affiche l'état de chargement de l'IA.
+         */
+        function setLoadingState(isLoading, buttonId, message = "Chargement...") {
+            const button = document.getElementById(buttonId);
+            const resultBox = document.getElementById('ai-result-box');
+            const resultText = document.getElementById('ai-result-text');
+            const sourcesDiv = document.getElementById('ai-sources');
+
+            if (isLoading) {
+                button.disabled = true;
+                button.innerHTML = `<svg class="animate-spin h-4 w-4 mr-2 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>${message}`;
+                resultBox.classList.add('hidden');
+                resultText.textContent = '';
+                sourcesDiv.innerHTML = '';
+            } else {
+                button.disabled = false;
+                if (buttonId === 'btn-archiviste') {
+                    button.innerHTML = '✨ Révélation de l\'Archiviste';
+                } else if (buttonId === 'btn-compendium') {
+                    button.innerHTML = '📚 Consulter le Compendium (Sagesse)';
+                }
+            }
+        }
+
+        /**
+         * Affiche le résultat de l'IA et ses sources (s'il y a lieu).
+         */
+        function displayAIResult(text, sources) {
+            const resultBox = document.getElementById('ai-result-box');
+            const resultText = document.getElementById('ai-result-text');
+            const sourcesDiv = document.getElementById('ai-sources');
+
+            resultText.textContent = text;
+            sourcesDiv.innerHTML = ''; 
+
+            if (sources && sources.length > 0) {
+                const sourceList = sources.map((s, i) => 
+                    `<a href="${s.uri}" target="_blank" class="text-royal-blue hover:underline">${s.title || `Source ${i + 1}`}</a>`
+                ).join(', ');
+                sourcesDiv.innerHTML = `Sources Compendium: ${sourceList}`;
+            }
+
+            resultBox.classList.remove('hidden');
+        }
+
+        /**
+         * Feature 1: Texte descriptif détaillé (Elaboration)
+         */
+        async function callGeminiElaboration(sceneTitle, sceneText) {
+            setLoadingState(true, 'btn-archiviste', 'Recherche dans les Chroniques...');
+            
+            const systemPrompt = "Agissez en tant qu'archiviste et scribe vénérable. Écrivez un paragraphe concis et profondément immersif (5-7 phrases) qui élabore sur les détails historiques, spirituels ou sensoriels de la scène actuelle, offrant à l'utilisateur une compréhension plus riche du monde. Répondez uniquement en français.";
+            const userQuery = `Scène: "${sceneTitle}". Description: "${sceneText}"`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+            };
+            
+            try {
+                const response = await retryFetch(API_URL_TEXT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                const result = await response.json();
+                const text = result.candidates?.[0]?.content?.parts?.[0]?.text || "Erreur: L'Archiviste est momentanément silencieux.";
+                
+                displayAIResult(text, []);
+
+            } catch (error) {
+                console.error("Erreur Gemini (Archiviste):", error);
+                displayAIResult("Le parchemin de l'Archiviste est illisible (Erreur API).", []);
+            } finally {
+                setLoadingState(false, 'btn-archiviste');
+            }
+        }
+
+        /**
+         * Feature 2: Conseil stratégique (Guidance/Grounding)
+         */
+        async function callGeminiGuidance(sceneText) {
+            setLoadingState(true, 'btn-compendium', 'Déchiffrement du Compendium...');
+            
+            const systemPrompt = "Agissez en tant que le 'Compendium des Secrets'—un guide ancien et cryptique. Basé sur le dilemme actuel, fournissez un conseil court (3 phrases maximum) qui fait allusion aux vertus de Sagesse, de Courage ou d'Équilibre. Utilisez un langage métaphorique et ancien. Répondez uniquement en français.";
+            const userQuery = `Dilemme actuel: "${sceneText}". Fournissez des conseils.`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                tools: [{ "google_search": {} }], // Utilisation du Grounding pour l'information
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+            };
+
+            try {
+                const response = await retryFetch(API_URL_TEXT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                const result = await response.json();
+                const candidate = result.candidates?.[0];
+                let text = "Les pages du Compendium sont vides (Erreur de décryptage).";
+                let sources = [];
+
+                if (candidate && candidate.content?.parts?.[0]?.text) {
+                    text = candidate.content.parts[0].text;
+                    const groundingMetadata = candidate.groundingMetadata;
+                    if (groundingMetadata && groundingMetadata.groundingAttributions) {
+                        sources = groundingMetadata.groundingAttributions
+                            .map(attribution => ({
+                                uri: attribution.web?.uri,
+                                title: attribution.web?.title,
+                            }))
+                            .filter(source => source.uri && source.title); 
+                    }
+                }
+                
+                displayAIResult(text, sources);
+
+            } catch (error) {
+                console.error("Erreur Gemini (Compendium):", error);
+                displayAIResult("Le Compendium est scellé par une magie oubliée (Erreur API).", []);
+            } finally {
+                setLoadingState(false, 'btn-compendium');
+            }
+        }
+
         // --- Fonctions de Gestion des Illustrations (Dynamique AI avec Fallback SVG) ---
 
         /**
          * Retourne le contenu SVG contextuel basé sur l'ID du Folio (Fallback)
-         * Utilise des chemins SVG simples inspirés de Lucide Icons.
+         * [Mise à jour : Ajout de la classe `gemini-feature-btn` pour le style des boutons IA]
          */
         function getSvgFallback(folioId) {
             let svgPath = "";
             let iconClass = "h-9 w-9 text-royal-blue";
-            let fallbackTitle = "Illustration par défaut";
+            let fallbackTitle = "Mystère";
 
             switch (folioId) {
                 case "start":
-                    // Livre ouvert (BookOpen)
-                    svgPath = '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>'; 
-                    fallbackTitle = "Grimoire Ouvert";
+                case "chapitre_1_pelerinage":
+                    svgPath = '<path d="M12 20h9"/><path d="M16.5 7.5l-9 9c-.63.63-.63 1.65 0 2.28L10 22l4.5-4.5 5.74-5.74a.5.5 0 0 0 .71 0z"/><path d="M12 12l2.5 2.5"/>'; 
+                    fallbackTitle = "La Révélation";
                     break;
-                case "folio_1":
-                    // Oeil barré (EyeOff)
-                    svgPath = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.47 9.47 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.07 2.92M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path d="M2 2l20 20"/>'; 
-                    fallbackTitle = "Cachette et Espionnage";
+                case "chapitre_1_chemins_risques":
+                case "chapitre_1_travail_perdu":
+                    svgPath = '<path d="M6 19c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM18 21c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/><path d="M17 21h1"/><path d="M12 17V3L7 6l-5 5v12h12v-5z"/><path d="M22 10l-4-4 4-4"/>';
+                    iconClass = "h-9 w-9 text-red-600";
+                    fallbackTitle = "Péril sur la Route";
                     break;
-                case "folio_2":
-                    // Épée et Bouclier stylisés
-                    svgPath = '<path d="M20 9l-7-7-3 3-7 7 3 3 7 7 3-3z"/><path d="M12 4.5l-2.5 2.5"/><path d="M12 19.5l-2.5-2.5"/>'; 
-                    fallbackTitle = "Conflit Imminent";
-                    iconClass = "h-9 w-9 text-red-700";
+                case "chapitre_1_foret_oubliee":
+                case "chapitre_1_meditation":
+                case "chapitre_1_vendre_talisman":
+                    svgPath = '<path d="M18 10a8 8 0 1 0-8 8"/><path d="M18 10v4h4"/><path d="M3 21l9-18 9 18H3z"/><path d="M10 18h4"/>';
+                    fallbackTitle = "Rencontre dans la Brume";
                     break;
-                case "folio_4":
-                    // Boussole (Compass)
-                    svgPath = '<path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M9 19 12 5 15 19 9 19z"/><path d="m14 14-3 3-3-3"/>';
-                    fallbackTitle = "Carte et Trésor";
+                case "chapitre_1_ville_antiquaire":
+                case "chapitre_1_eglise":
+                case "chapitre_1_bibliotheque":
+                case "chapitre_1_observation":
+                    svgPath = '<path d="M8 2v10"/><path d="M12 2v10"/><path d="M16 2v10"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M4 8h16"/>';
+                    fallbackTitle = "Aethelgard et l'Antiquaire";
                     break;
-                case "folio_5":
-                    // Serrure (Lock) + Symbole Brisé
-                    svgPath = '<rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><path d="M10 16h4"/><path d="M12 14v4"/>'; 
-                    fallbackTitle = "Sceau Brisé";
+                case "chapitre_2_enigme_1":
+                case "chapitre_2_crypte_prudence":
+                case "chapitre_2_ville_service":
+                    svgPath = '<path d="M12 16a4 4 0 0 0 4-4c0-4-4-8-4-8s-4 4-4 8a4 4 0 0 0 4 4z"/><path d="M20 8l-2 2-2-2-2 2-2-2-2 2-2-2"/><path d="M4 12h16"/>';
+                    fallbackTitle = "L'Énigme de la Sagesse";
                     break;
-                case "folio_6":
-                    // Flamme (Dragon/Danger)
-                    svgPath = '<path d="M8.5 14.5A2.5 2.5 0 0 0 7 12c0-1.25.75-2.08 1.5-2.5 1-.58 2.5-1.25 2.5-2.5 0-.8-.5-1.5-1-2"/><path d="M15.5 14.5A2.5 2.5 0 0 1 17 12c0-1.25-.75-2.08-1.5-2.5-1-.58-2.5-1.25-2.5-2.5 0-.8.5-1.5 1-2"/><path d="M18 13.5A6.47 6.47 0 0 0 12 2c-3.1 0-6 2-6 5.5"/><path d="M12 22a4 4 0 0 0-4-4V6a4 4 0 0 0 4-4a4 4 0 0 0 4 4v12a4 4 0 0 0-4 4z"/>';
-                    iconClass = "h-10 w-10 text-red-500";
-                    fallbackTitle = "Menace Draconique";
+                case "chapitre_2_crypte_echec_reponse":
+                case "chapitre_2_ville_echec":
+                    svgPath = '<path d="M14 10H2"/><path d="M2 6h12"/><path d="M2 14h12"/><path d="M20 18v-4h-2"/><path d="M2 18h12"/>'; 
+                    iconClass = "h-9 w-9 text-red-800";
+                    fallbackTitle = "Piège Mortel";
                     break;
-                case "folio_7":
-                    // Symbole d'arrêt ou d'impasse (Square)
-                    svgPath = '<rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><path d="M9 9l6 6"/><path d="M15 9l-6 6"/>';
-                    fallbackTitle = "Impasse";
-                    iconClass = "h-8 w-8 text-ink-dark";
+                case "chapitre_3_kael_dra_arrivee":
+                case "chapitre_3_chercher_aide":
+                case "chapitre_3_negociation":
+                    svgPath = '<path d="M12 3L2 12h3v8h14v-8h3L12 3z"/><path d="M10 16h4"/>'; 
+                    fallbackTitle = "Kael-Dra, le Village Oublié";
                     break;
-                case "folio_8":
-                    // Escalier ou trappe (Stairs)
-                    svgPath = '<path d="m5 17 4-4 4 4 4-4 4 4"/><path d="m5 21 4-4 4 4 4-4 4 4"/><path d="M12 4h.01"/>'; 
-                    fallbackTitle = "Échappatoire Secrète";
+                case "chapitre_3_promesse_action":
+                case "chapitre_3_tuer_loup_moral":
+                case "chapitre_3_chant_calmant":
+                    svgPath = '<path d="M18 9c0-3.5-5-3.5-5-3.5S8 5.5 8 9M2 15h20M12 2l-2 4h4z"/><circle cx="12" cy="15" r="3"/>';
+                    fallbackTitle = "L'Épreuve du Loup";
                     break;
-                case "end_fail":
-                    // Crâne (Skull)
-                    svgPath = '<circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6"/><path d="M9 9l6 6"/>'; 
-                    iconClass = "h-9 w-9 text-red-900";
-                    fallbackTitle = "Mort/Échec";
+                case "chapitre_3_source_corruption":
+                    svgPath = '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 11v6"/><path d="M10 15h4"/>'; 
+                    iconClass = "h-10 w-10 text-green-700";
+                    fallbackTitle = "Source Purifiée";
+                    break;
+                case "chapitre_4_sanctuaire_approche":
+                    svgPath = '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 11v6"/><path d="M10 15h4"/>';
+                    iconClass = "h-10 w-10 text-red-900";
+                    fallbackTitle = "La Tentation";
+                    break;
+                case "chapitre_4_climax_total":
+                case "chapitre_4_climax_partiel_courage":
+                case "chapitre_4_climax_partiel_sagesse":
+                    svgPath = '<path d="M8.5 14.5c.5-1.5 2-2.5 3.5-2.5s3.5 1 4 2.5a3 3 0 0 1-6 0z"/><path d="M12 2a4 4 0 0 0-4 4c0 3 2 5 4 5s4-2 4-5a4 4 0 0 0-4-4z"/>';
+                    iconClass = "h-10 w-10 text-ornate-gold";
+                    fallbackTitle = "La Flamme Sacrée";
                     break;
                 case "end_success":
-                    // Soleil (Sun)
-                    svgPath = '<circle cx="12" cy="12" r="10"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="m2 12h2"/><path d="m20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>'; 
-                    iconClass = "h-10 w-10 text-ornate-gold";
-                    fallbackTitle = "Victoire";
+                    svgPath = '<path d="M22 10a10 10 0 1 0-20 0h20z"/><path d="M12 2v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/>';
+                    fallbackTitle = "Victoire de l'Équilibre";
+                    break;
+                case "end_fail":
+                case "end_partial_success":
+                    svgPath = '<circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6"/><path d="M9 9l6 6"/>'; 
+                    iconClass = "h-9 w-9 text-red-900";
+                    fallbackTitle = "L'Ombre S'étend";
                     break;
                 default:
-                    // Encre et Plume (Ink/Quill)
-                    svgPath = '<path d="M12 20h9"/><path d="M16.5 7.5l-9 9c-.63.63-.63 1.65 0 2.28L10 22l4.5-4.5 5.74-5.74a.5.5 0 0 0 .71 0z"/><path d="M12 12l2.5 2.5"/>'; 
-                    fallbackTitle = "Mystère";
+                    svgPath = '<path d="M12 18v-4"/><path d="M12 22c-3.3 0-6-1.8-6-4s2.7-4 6-4 6 1.8 6 4-2.7 4-6 4z"/><path d="M17 14c0-3.3-2.7-6-6-6s-6 2.7-6 6"/><path d="M12 2l-4 4 4 4 4-4z"/>';
+                    fallbackTitle = "Relique des Anciens";
             }
 
-            // SVG structure
+            // SVG structure 
             const svgContent = `
                 <svg class="${iconClass} mb-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     ${svgPath}
@@ -262,38 +570,56 @@
             return { svgContent, fallbackTitle };
         }
 
-        // Fonction pour générer le prompt stylisé pour l'IA
+        // Fonction pour générer le prompt stylisé pour l'IA (Image)
         function getFolioPrompt(folioId) {
             const defaultStyle = "enluminure détaillée, style dessin à l'encre médiéval, couleurs vives sur parchemin, ornementation florale et dorée, haute fantaisie, vue rapprochée de l'illustration.";
             
             let specificScene;
             switch (folioId) {
                 case "start":
-                    specificScene = "Une main tenant un livre ouvert (Grimoire) sur une table de bois, avec les ombres de personnages armés qui s'approchent sur le mur.";
+                    specificScene = "Un jeune moine chevalier sans armure sort d'un monastère austère au lever du soleil, tenant un grand livre ancien sous le bras.";
                     break;
-                case "folio_1":
-                    specificScene = "Deux silhouettes encapuchonnées (des gardes) fouillant une chambre à coucher médiévale, ignorant une personne cachée sous le lit.";
+                case "chapitre_1_chemins_risques":
+                case "chapitre_1_travail_perdu":
+                    specificScene = "Des brigands ricanant sur une route poussiéreuse laissant un moine s'en aller, le tout sous un soleil de plomb. Ambiance de la Renaissance sombre.";
                     break;
-                case "folio_2":
-                    specificScene = "Un tisonnier de cheminée rouillé brandi comme une arme, face à une grande hache levée par un garde.";
+                case "chapitre_1_foret_oubliee":
+                case "chapitre_1_meditation":
+                case "chapitre_1_vendre_talisman":
+                    specificScene = "Un moine écoutant une vieille femme mystérieuse (une ermite) assise près d'un feu de camp dans une forêt brumeuse et sombre.";
                     break;
-                case "folio_4":
-                    specificScene = "Un gros plan sur une carte en parchemin déchirée et trois pièces d'or brillante sur une table.";
+                case "chapitre_1_ville_antiquaire":
+                case "chapitre_2_ville_service":
+                    specificScene = "Un moine pauvre parlant à un vieil antiquaire corpulent, entouré de parchemins et de trésors dans une boutique animée et sombre de la ville d'Aethelgard.";
                     break;
-                case "folio_5":
-                    specificScene = "Le sol d'une chambre avec un grand sceau ancien, brisé en son centre.";
+                case "chapitre_2_enigme_1":
+                case "chapitre_2_crypte_prudence":
+                    specificScene = "Une petite urne ancienne et poussiéreuse dans une crypte silencieuse, illuminée par un rayon de soleil, représentant les Cendres de la Sagesse.";
                     break;
-                case "folio_6":
-                    specificScene = "Un grand dragon rouge survolant des montagnes fumantes, repérant une petite silhouette dans la plaine stérile.";
+                case "chapitre_3_kael_dra_arrivee":
+                case "chapitre_3_chercher_aide":
+                case "chapitre_3_negociation":
+                    specificScene = "Un village de montagne abandonné et silencieux, vu à travers une brume épaisse, avec une seule vieille femme regardant le moine.";
                     break;
-                case "folio_8":
-                    specificScene = "Une trappe en bois ou en pierre qui s'ouvre dans le sol, révélant un escalier sombre et tortueux vers le bas.";
+                case "chapitre_3_promesse_action":
+                case "chapitre_3_tuer_loup_moral":
+                case "chapitre_3_chant_calmant":
+                    specificScene = "Un moine chevalier observant un loup massif et souffrant dans la brume, son talisman brillant faiblement en tant qu'indice. Scène de nuit.";
+                    break;
+                case "chapitre_3_source_corruption":
+                    specificScene = "Une petite fissure dans le lit d'une rivière de montagne, suintant une encre noire et maléfique, le moine utilisant son énergie pour la sceller.";
+                    break;
+                case "chapitre_4_sanctuaire_approche":
+                    specificScene = "Un homme vêtu d'une robe d'or et portant un air de fausse bonté attendant le moine sur un col de montagne, le Sanctuaire du Feu Sacré visible au loin.";
+                    break;
+                case "chapitre_4_climax_total":
+                    specificScene = "Une grande flamme bleue et or au centre d'un autel de pierre, le moine y déposant deux urnes de cendres, la scène rayonnant de lumière et de paix.";
                     break;
                 case "end_success":
-                    specificScene = "Une silhouette triomphante émergeant d'un tunnel souterrain dans la lumière vive du soleil matinal, tenant un livre précieux.";
+                    specificScene = "Le moine chevalier, serein, devant un symbole de paix et d'équilibre cosmique rayonnant. Style vitrail médiéval.";
                     break;
                 default:
-                    specificScene = "Un rouleau de parchemin ancien avec des écritures illisibles et une boussole arcanique.";
+                    specificScene = "Le Compendium des Secrets Hermétiques (un grimoire) reposant ouvert sous la lumière des étoiles.";
             }
 
             return `${specificScene}. ${defaultStyle}`; 
@@ -301,13 +627,13 @@
         
         /**
          * Génère une image dynamique via l'API Google et l'affiche, ou un placeholder SVG en cas d'échec.
-         * @param {string} prompt Le prompt détaillé pour l'image.
-         * @param {string} targetElementId L'ID de l'élément où insérer l'image.
          */
         async function generateIllustration(folioId, targetElementId) {
             const prompt = getFolioPrompt(folioId);
             const folioTextContent = document.getElementById(targetElementId);
-            const currentText = folioTextContent.innerHTML;
+            
+            // Récupérer le texte actuel pour le réinsérer après le chargement/l'image
+            const currentText = gameData[folioId].text; 
             
             // 1. Créer et insérer l'indicateur de chargement (Spinner)
             const loadingHtml = `
@@ -319,8 +645,7 @@
                     <span class="mt-2 text-xs font-body">Création de l'Enluminure...</span>
                 </div>
             `;
-            // Insérer le chargement AVANT le texte pour qu'il flotte correctement
-            folioTextContent.innerHTML = loadingHtml + currentText;
+            folioTextContent.innerHTML = loadingHtml + `<p class="story-paragraph">${currentText.replace(/\n/g, '<br>')}</p>`;
             
             const loadingContainer = document.getElementById('image-loading-container');
 
@@ -331,7 +656,7 @@
             };
 
             try {
-                const response = await retryFetch(apiUrl, {
+                const response = await retryFetch(API_URL_IMAGE, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
@@ -367,13 +692,12 @@
                 const { svgContent, fallbackTitle } = getSvgFallback(folioId);
                 
                 if (loadingContainer) {
-                    // Conserver les classes de dimensionnement et de flottement, changer la couleur
+                    // Mettre à jour le style pour l'icône SVG
                     loadingContainer.className = "enluminure-frame float-left mr-4 mb-2 w-32 h-32 flex flex-col items-center justify-center text-center bg-parchment-shadow/70 text-ink-dark/70 transform rotate-[-0.5deg]";
                     loadingContainer.innerHTML = `
                         ${svgContent}
                         <span class="mt-1 text-xs font-semibold font-body">${fallbackTitle}</span>
-                        <span class="text-[0.6rem] px-1 font-body italic">(Placeholder)</span>
-                    `;
+                    `; 
                 }
                 // --- FIN LOGIC ---
             }
@@ -391,43 +715,54 @@
             
             const folioTextContent = document.getElementById('folio-text-content');
             
-            // 1. Vider l'ancien contenu
+            // 1. Cacher les résultats IA précédents
+            document.getElementById('ai-result-box').classList.add('hidden');
+
+            // 2. Vider l'ancien contenu
             folioTextContent.innerHTML = '';
             
-            // 2. Insérer le texte (enveloppé dans un paragraphe pour la lettrine)
-            const initialText = `<p class="story-paragraph">${folio.text.replace(/\n/g, '<br>')}</p>`;
-            folioTextContent.innerHTML = initialText;
-
-            // 3. Obtenir le prompt et lancer la fonction de gestion d'image dynamique (async)
+            // 3. Insérer le texte et l'illustration
+            // La fonction generateIllustration gère la structure <p class="story-paragraph"> et l'insertion du spinner/image
             generateIllustration(folioId, 'folio-text-content'); 
+            
+            // 4. Mettre à jour les boutons d'aide IA
+            const btnArchiviste = document.getElementById('btn-archiviste');
+            const btnCompendium = document.getElementById('btn-compendium');
+            
+            // Les fins ne nécessitent pas de conseils ou d'explications supplémentaires.
+            const isEnd = folioId.startsWith('end_');
+            const featureContainer = document.getElementById('ai-features');
+            
+            if (isEnd) {
+                featureContainer.classList.add('hidden');
+            } else {
+                featureContainer.classList.remove('hidden');
+                // Mise à jour des onClick avec les données de la scène actuelle
+                btnArchiviste.onclick = () => callGeminiElaboration(folio.title, folio.text);
+                btnCompendium.onclick = () => callGeminiGuidance(folio.text);
+                setLoadingState(false, 'btn-archiviste');
+                setLoadingState(false, 'btn-compendium');
+            }
+
 
             const choicesContainer = document.getElementById('folio-choices');
             choicesContainer.innerHTML = ''; // Nettoyer les anciens choix
             
-            // --- Logique pour afficher le numéro de Folio en chiffres romains ---
-            let folioLabel;
-            if (folioId === 'start') {
-                folioLabel = 'I';
-            } else if (folioId.startsWith('folio_')) {
-                const arabicNum = parseInt(folioId.replace('folio_', ''), 10);
-                folioLabel = toRoman(arabicNum);
-            } else {
-                // Pour les états de fin (end_fail, end_success)
-                folioLabel = 'FIN'; 
-            }
+            // --- Logique pour afficher le numéro de Folio en chiffres romains (décoratif) ---
+            const allKeys = Object.keys(gameData);
+            const index = allKeys.indexOf(folioId);
+            const folioLabel = index !== -1 ? toRoman(index + 1) : folioId.toUpperCase();
             
-            document.getElementById('folio-number').textContent = 'Folio ' + folioLabel;
+            document.getElementById('folio-number').textContent = 'Page de Manuscrit ' + folioLabel;
             // --- Fin de la Logique de chiffres romains ---
 
             // Générer les nouveaux choix
             folio.choices.forEach((choice, index) => {
                 const button = document.createElement('button');
                 // Styles de bouton adaptés au thème Royal
-                // Le w-full assure la réactivité sur mobile
+                const choiceNumberRoman = toRoman(index + 1);
                 button.className = 'manuscript w-full text-left p-3 my-2 border border-royal-blue/50 rounded-lg bg-parchment-shadow hover:bg-parchment-base transition duration-150 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-royal-blue/70';
                 
-                // Utilisation des chiffres romains pour les choix
-                const choiceNumberRoman = toRoman(index + 1);
                 button.textContent = `${choiceNumberRoman}. ${choice.text}`;
                 
                 button.onclick = () => loadFolio(choice.target);
@@ -537,6 +872,12 @@
             color: #cdac60; 
             font-family: 'Uncial Antiqua', 'serif';
         }
+
+        /* Style spécifique pour les boutons de fonctionnalités Gemini */
+        .gemini-feature-btn {
+            @apply inline-flex items-center text-sm font-semibold text-royal-blue border border-royal-blue/50 rounded-lg bg-parchment-shadow hover:bg-parchment-base transition duration-150 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-ornate-gold px-3 py-2;
+            font-family: 'IM Fell English', serif;
+        }
     </style>
 </head>
 <body>
@@ -544,7 +885,7 @@
     <!-- Contrôles audio -->
     <div class="audio-controls">
         <p class="manuscript text-base italic">
-            Ambiance sonore : <span class="font-title">Le Secret du Donjon</span>
+            Ambiance sonore : <span class="font-title">Musique de Quête (Simulée)</span>
         </p>
         <audio controls loop class="mt-2 w-full max-w-sm mx-auto">
             <source src="placeholder.mp3" type="audio/mpeg">
@@ -564,6 +905,26 @@
             <div id="folio-text-content" class="manuscript mb-6 text-xl">
                 <!-- L'image IA, le spinner ou le SVG de fallback sera inséré ici par JS -->
             </div>
+
+            <!-- NOUVELLE SECTION : Fonctionnalités LLM (Gemini) -->
+            <div id="ai-features" class="my-4 border-t pt-4 border-royal-blue/30 space-y-3">
+                <div class="flex flex-wrap gap-2">
+                    <button id="btn-archiviste" class="gemini-feature-btn">
+                        ✨ Révélation de l'Archiviste
+                    </button>
+                    <button id="btn-compendium" class="gemini-feature-btn">
+                        📚 Consulter le Compendium (Sagesse)
+                    </button>
+                </div>
+                
+                <!-- Boîte de Résultat de l'IA -->
+                <div id="ai-result-box" class="mt-4 p-4 border-2 border-ornate-gold rounded-lg bg-parchment-shadow/70 shadow-inner hidden">
+                    <p class="font-title text-ink-dark/90 mb-1">Dépêche de l'Au-Delà :</p>
+                    <p id="ai-result-text" class="text-base italic manuscript"></p>
+                    <div id="ai-sources" class="mt-3 text-xs text-ink-dark/60 border-t border-ink-dark/10 pt-1"></div>
+                </div>
+            </div>
+            <!-- FIN NOUVELLE SECTION -->
 
             <!-- Conteneur des Choix -->
             <div id="folio-choices" class="mt-8 space-y-3">
